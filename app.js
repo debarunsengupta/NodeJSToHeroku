@@ -11,7 +11,7 @@ server.post('/',function (request,response)  {
   
                     response.setHeader('Content-Type', 'application/json');
                     response.send(JSON.stringify({
-                        "fulfillmentText" : "output",
+                        "fulfillmentText" : "Connected to Salesforce",
                         "source" : "EchoService"
                     })); 
                 
