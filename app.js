@@ -19,15 +19,3 @@ app.get('/',function (req,res){
 server.listen(port,() => {
 console.log(`Server running at port `+port);
 });
-<<<<<<< HEAD
-=======
-server.get('/',function (req,res){
-    //res.send('Swarup Bam');
-   res.setHeader('Content-Type', 'application/json');
-   
-                    res.send(JSON.stringify({
-                        "speech" : 'connection achieved',
-                        "displayText" : 'connection achieved'
-                    }));
-});
->>>>>>> 33ca7d1ae8356d40e7a3aa0269e55580b56389ca
