@@ -1,21 +1,26 @@
-const http = require('http');
-const port=process.env.PORT || 3000
-var expres=require('express');
-var app=expres();
-const server = http.createServer((req, res) => {
-res.statusCode = 200;
-res.setHeader('Content-Type', 'text/html');
-//res.end('<h1>Hello World</h1>');
+// dependencies
+'use strict';
+const express = require('express');
+const http = require('https');
+
+var port = process.env.PORT || 8080;
+// create serve and configure it.
+const server = express();
+
+server.post('/',function (request,response)  {
+  
+                    response.setHeader('Content-Type', 'application/json');
+                    response.send(JSON.stringify({
+                        "speech" : output,
+                        "displayText" : output
+                    })); 
+                
+            });
+    
+
+server.get('/',function (req,res){
+    res.send('Swarup Bam');
 });
-app.get('/',function (req,res){
-    //res.send('Swarup Bam');
-   res.setHeader('Content-Type', 'application/json');
-   
-                    res.send(JSON.stringify({
-                        "speech" : 'connection achieved',
-                        "displayText" : 'connection achieved'
-                    }));
-});
-server.listen(port,() => {
-console.log(`Server running at port `+port);
+server.listen(port, function () {
+    console.log("Server is up and running...");
 });
