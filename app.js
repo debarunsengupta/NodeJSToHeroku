@@ -15,6 +15,11 @@ const server = express();
 server.post('/',function (request,response)  {
 	conn.login(process.env.username, process.env.pass, function(err, res) { 
     if (err) { 
+	response.setHeader('Content-Type', 'application/json');
+                    response.send(JSON.stringify({
+                        "fulfillmentText" : "Error from Salesforce",
+                        "source" : "EchoService"
+                    })); 
         return console.error(err); 
     }
      else
