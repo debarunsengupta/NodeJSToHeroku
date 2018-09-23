@@ -30,10 +30,13 @@ var signIN=new Promise((resolve,reject)=>{
 	});
 });
 
-app.intent('connect_salesforce',(conv)=>{
+app.intent('connect_salesforce',(conv,params)=>{
     
    	signIN.then((resp)=>{
 	console.log(resp);
+		const explicit = conv.arguments.get('objName'); // also retrievable with explicit arguments.get
+		console.log('the val is :'+explicit);
+
 		conv.ask(new SimpleResponse({speech:"We are able to connect to your account",text:"We are able to connect your account"}));
 	},(error) => {
   console.log('Promise rejected.');
