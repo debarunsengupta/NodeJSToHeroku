@@ -35,7 +35,10 @@ app.intent('connect_salesforce',(conv)=>{
    	signIN.then((resp)=>{
 	console.log(resp);
 		conv.ask(new SimpleResponse({speech:"We are able to connect to your account",text:"We are able to connect your account"}));
-	});
+	},(error) => {
+  console.log('Promise rejected.');
+  console.log(error.message);
+});
 });
 
 var port = process.env.PORT || 3000;
