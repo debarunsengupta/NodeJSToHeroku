@@ -6,6 +6,10 @@ const bodyParser=require('body-parser');
 const jsforce = require('jsforce'); 
 const server = express();
 
+var conn = new jsforce.Connection({ 
+    loginUrl: 'https://login.salesforce.com', //'https://login.salesforce.com', 
+    version: '43.0' 
+}); 
 const {
     dialogflow,
     SimpleResponse,
@@ -21,7 +25,21 @@ var app=dialogflow();
 
 
 app.intent('connect_salesforce',(conv)=>{
-    conv.ask(new SimpleResponse({speech:"We are able to connect to your account",text:"We are able to connect your account"}));
+    
+   	conn.login(process.env.username, process.env.pass, function(err, res) { 
+    if (err) { 
+ 
+
+	    console.log('error');
+
+        return console.error(err); 
+    }
+     else
+	 {
+		 conv.ask(new SimpleResponse({speech:"We are able to connect to your account",text:"We are able to connect your account"}));
+	 }
+                
+     });
 });
 
 var port = process.env.PORT || 3000;
