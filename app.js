@@ -31,11 +31,11 @@ var signIN=new Promise((resolve,reject)=>{
 });
 
 
-var accountCreation=function (conv,acctName){
+var accountCreation=function (acctName){
 	return new Promise((resolve,reject)=>{
 		console.log('Account Name is -->',acctName);
 		conn.login(process.env.username, process.env.pass, function(err, res){
-			if(err){reject();}
+			if(err){reject(err);}
 			else{
 				
 			
@@ -43,12 +43,12 @@ var accountCreation=function (conv,acctName){
 		conn.sobject("Account").create({ Name : acctName }, function(error, ret) {
 		  if (error || !ret.success) { 
 			  
-			  reject(); 
+			  reject(error); 
 		  }
 		  else
 		   {
-			 conv.ask(new SimpleResponse({speech:"We are able to create your account",text:"This is details: "+JSON.stringify(ret)}));
-			 resolve();
+			 
+			 resolve(ret);
 		  }
 	 
 		  });
@@ -75,7 +75,10 @@ app.intent('connect_salesforce',(conv,params)=>{
 });
 
 app.intent('AccountName',(conv,params)=>{
-	accountCreation(conv,params.AccountName);	
+	return accountCreation(params.AccountName).then((resp)=>{
+		conv.ask(new SimpleResponse({speech:"We are able to create your account",text:"Account details is "+JSON.stringify(resp)}));
+	}).catch((err)=>{
+	conv.ask(new SimpleResponse({speech:"Error while creating salesforce account",text:"Error while creating salesforce account"}));});	
 });
 
 var port = process.env.PORT || 3000;
