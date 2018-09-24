@@ -31,7 +31,8 @@ var signIN=new Promise((resolve,reject)=>{
 });
 
 var accountCreation=new Promise((resolve,reject)=>{
-	
+	console.log('called');
+	console.log('name fetched--->'+name);
 	conn.login(process.env.username, process.env.pass, function(err, res){
 		if(err){reject(err);}
 		else{
