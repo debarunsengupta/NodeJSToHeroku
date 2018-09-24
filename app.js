@@ -112,7 +112,7 @@ app.intent('getAccInfo',(conv,params)=>{
         for (var i = 0; i < resp.records.length; i++) {
             console.log("record name: : " + result.records[i].Name);
             console.log("record id: : " + result.records[i].Id);
-            strName += result.records[i].Name + ',';
+            strName += resp.records[i].Name + ',';
            
        }
 		conv.ask(new SimpleResponse({speech:"We are able to get the account information"+strName,text:"We are able to get the account information"+strName}));
