@@ -14,6 +14,7 @@ const {
     dialogflow,
     SimpleResponse,
     Image,
+    Suggestions	
   } = require('actions-on-google');
 
 
@@ -88,7 +89,7 @@ app.intent('connect_salesforce',(conv,params)=>{
 		//const explicit = conv.arguments.get('objName'); // also retrievable with explicit arguments.get
 		//console.log('the val is :'+explicit);
 
-		conv.ask(new SimpleResponse({speech:"We are able to connect to your account",text:"We are able to connect your account"}));
+		conv.ask(new SimpleResponse({speech:"We are able to connect to your account",text:"We are able to connect your account"}),new Suggestions('get me the accounts that were created recently'));
 	},(error) => {
   console.log('Promise rejected.');
   console.log(error.message);
