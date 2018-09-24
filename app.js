@@ -31,7 +31,7 @@ var signIN=new Promise((resolve,reject)=>{
 });
 
 var accountCreation=new Promise((resolve,reject)=>{
-conn.sobject("Account").create({ Name : 'My Account google assistant' }, function(err, ret) {
+conn.sobject("Account").create({ Name : name }, function(err, ret) {
   if (err || !ret.success) { return reject(err); }
   else
   {
@@ -65,18 +65,17 @@ app.intent('AccountName',(conv,params)=>{
 	console.log(resp);
 	conv.ask(new SimpleResponse({speech:"Account has been created successfully",text:"Account has been created successfully"}));
 	},(error) => {
-  console.log('Promise rejected.');
+  console.log('Promise rejected while account creation.');
   console.log(error.message);
+conv.ask(new SimpleResponse({speech:"Error Encountered while Account Creation",text:"Error Encountered while Account Creation"}));
+
 });
 
 });
 
 var port = process.env.PORT || 3000;
 //var arr = new Array();
-var conn = new jsforce.Connection({ 
-  loginUrl: 'https://login.salesforce.com', //'https://login.salesforce.com', 
-  version: '43.0' 
-}); 
+ 
 
 server.get('/',(req,res)=>{res.send('Hello World!');});
 server.post('/fulfillment',app);
