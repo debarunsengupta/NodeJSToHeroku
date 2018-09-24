@@ -31,14 +31,23 @@ var signIN=new Promise((resolve,reject)=>{
 });
 
 var accountCreation=new Promise((resolve,reject)=>{
-conn.sobject("Account").create({ Name : name }, function(err, ret) {
-  if (err || !ret.success) { return reject(err); }
-  else
-  {
+	
+	conn.login(process.env.username, process.env.pass, function(err, res){
+		if(err){reject(err);}
+		else{
+			//resolve(res);
+			
+	conn.sobject("Account").create({ Name : name }, function(err, ret) {
+      if (err || !ret.success) { return reject(err); }
+      else
+       {
 	  resolve(ret);
-  }
+      }
  
-});
+      });
+		
+		}
+	});
 });
 app.intent('connect_salesforce',(conv,params)=>{
     
