@@ -67,7 +67,7 @@ var accountRetrieval=function (days){
 				
 			
 			   
-                conn.query('select Id,Name,createddate from Account where createddate = LAST_N_DAYS:'+days, function(err, result){
+                conn.query('select Id,Name,createddate from Account where createddate = LAST_N_DAYS:'+days+'LIMIT 2', function(err, result){
                     if (err) {
                         reject(err);
                     }
