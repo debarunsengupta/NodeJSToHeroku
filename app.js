@@ -76,8 +76,9 @@ app.intent('connect_salesforce',(conv,params)=>{
 
 app.intent('AccountName',(conv,params)=>{
 	var result=accountCreation(params.AccountName);
+	result.then(()=>{conv.ask(new SimpleResponse({speech:"We are able to create your account",text:"We are able to create your account"}));});
 	console.log('Response is -->',result);
-	conv.ask(new SimpleResponse({speech:"We are able to create your account",text:"We are able to create your account"}));
+	
 });
 
 var port = process.env.PORT || 3000;
