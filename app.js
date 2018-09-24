@@ -5,7 +5,7 @@ const http = require('https');
 const bodyParser=require('body-parser');
 const jsforce = require('jsforce'); 
 const server = express();
-var name='';
+var strName='';
 var conn = new jsforce.Connection({ 
     loginUrl: 'https://login.salesforce.com', //'https://login.salesforce.com', 
     version: '43.0' 
@@ -109,7 +109,13 @@ app.intent('getAccInfo',(conv,params)=>{
     console.log('days passed from google'+params.days);
 	return accountRetrieval(params.days).then((resp)=>{
         console.log('response',resp);
-		conv.ask(new SimpleResponse({speech:"We are able to get the account information",text:"We are able to get the account information"}));
+        for (var i = 0; i < resp.records.length; i++) {
+            console.log("record name: : " + result.records[i].Name);
+            console.log("record id: : " + result.records[i].Id);
+            strName += result.records[i].Name + ',';
+           
+       }
+		conv.ask(new SimpleResponse({speech:"We are able to get the account information"+strName,text:"We are able to get the account information"+strName}));
 	}).catch((err)=>{
         console.log('error',err);
 	    conv.ask(new SimpleResponse({speech:"Error while fetching info",text:"Error while fetching info"}));});	
