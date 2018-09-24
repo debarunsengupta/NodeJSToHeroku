@@ -5,7 +5,7 @@ const http = require('https');
 const bodyParser=require('body-parser');
 const jsforce = require('jsforce'); 
 const server = express();
-var name;
+global.name='test';
 var conn = new jsforce.Connection({ 
     loginUrl: 'https://login.salesforce.com', //'https://login.salesforce.com', 
     version: '43.0' 
@@ -31,8 +31,7 @@ var signIN=new Promise((resolve,reject)=>{
 });
 
 var accountCreation=new Promise((resolve,reject)=>{
-	console.log('called');
-	console.log('name fetched--->'+name);
+	
 	conn.login(process.env.username, process.env.pass, function(err, res){
 		if(err){reject(err);}
 		else{
@@ -61,7 +60,6 @@ app.intent('connect_salesforce',(conv,params)=>{
 	},(error) => {
   console.log('Promise rejected.');
   console.log(error.message);
- conv.ask(new SimpleResponse({speech:"Error encountered while connecting to salesforce",text:"Error encountered while connecting to salesforce"}));
 });
 });
 
@@ -78,7 +76,7 @@ app.intent('AccountName',(conv,params)=>{
 	},(error) => {
   console.log('Promise rejected while account creation.');
   console.log(error.message);
-conv.ask(new SimpleResponse({speech:"Error encountered while Account Creation",text:"Error encountered while Account Creation"}));
+conv.ask(new SimpleResponse({speech:"Error Encountered while Account Creation",text:"Error Encountered while Account Creation"}));
 
 });
 
