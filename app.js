@@ -75,9 +75,11 @@ app.intent('connect_salesforce',(conv,params)=>{
 });
 
 app.intent('AccountName',(conv,params)=>{
-	var result=accountCreation(params.AccountName);
-	result.then(()=>{conv.ask(new SimpleResponse({speech:"We are able to create your account",text:"We are able to create your account"}));});
-	console.log('Response is -->',result);
+	var acctcreate=accountCreation(params.AccountName);
+	acctcreate.then((resp)=>{return resp;}).then((response)=>{console.log('Account creation response-->',response);})
+	console.log('Promise is -->',acctcreate);
+	conv.ask(new SimpleResponse({speech:"We are able to create to your account",text:"We are able to create your account"}));
+	
 	
 });
 
