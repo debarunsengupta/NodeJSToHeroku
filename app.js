@@ -33,18 +33,22 @@ var signIN=new Promise((resolve,reject)=>{
 
 var accountCreation=function (acctName){
 	return new Promise((resolve,reject)=>{
-	
+		console.log('Account Name is -->',acctName);
 		conn.login(process.env.username, process.env.pass, function(err, res){
 			if(err){reject(err);}
 			else{
 				//resolve(res);
 			
 			   
-		conn.sobject("Account").create({ Name : acctName }, function(err, ret) {
-		  if (err || !ret.success) { return reject(err); }
+		conn.sobject("Account").create({ Name : acctName }, function(error, ret) {
+		  if (error || !ret.success) { 
+			  console.log('Error happened creating account-->',error);
+			  reject(error); 
+		  }
 		  else
 		   {
-		  resolve(ret);
+			 console.log('Successfully created account-->',ret);
+		  	resolve(ret);
 		  }
 	 
 		  });
