@@ -76,7 +76,7 @@ app.intent('connect_salesforce',(conv,params)=>{
 
 app.intent('AccountName',(conv,params)=>{
 	return accountCreation(params.AccountName).then((resp)=>{
-		conv.ask(new SimpleResponse({speech:"We are able to create your account named:"+params.AccountName,text:"We are able to create your account named:"+params.AccountName);
+		conv.ask(new SimpleResponse({speech:"We are able to create your account named:"+params.AccountName,text:"We are able to create your account named:"+params.AccountName}));
 	}).catch((err)=>{
 	conv.ask(new SimpleResponse({speech:"Error while creating salesforce account",text:"Error while creating salesforce account"}));});	
 });
