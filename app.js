@@ -58,6 +58,29 @@ var accountCreation=function (acctName){
 });
 }
 
+var accountRetrieval=function (days){
+	return new Promise((resolve,reject)=>{
+		console.log('days -->',days);
+		conn.login(process.env.username, process.env.pass, function(err, res){
+			if(err){reject(err);}
+			else{
+				
+			
+			   
+                conn.query('select Id,Name,createddate from Account where createddate = LAST_N_DAYS:'+days, function(err, result){
+                    if (err) {
+                        reject(err);
+                    }
+                    else{
+                        resolve(result);
+                    }
+                });
+			
+            }
+		});
+});
+}
+
 app.intent('connect_salesforce',(conv,params)=>{
     
    	signIN.then((resp)=>{
@@ -79,6 +102,17 @@ app.intent('AccountName',(conv,params)=>{
 		conv.ask(new SimpleResponse({speech:"We are able to create your account named:"+params.AccountName,text:"We are able to create your account named:"+params.AccountName}));
 	}).catch((err)=>{
 	conv.ask(new SimpleResponse({speech:"Error while creating salesforce account",text:"Error while creating salesforce account"}));});	
+});
+
+
+app.intent('getAccInfo',(conv,params)=>{
+    console.log('days passed from google'+params.days);
+	return accountRetrieval(params.days).then((resp)=>{
+        console.log('response',resp);
+		conv.ask(new SimpleResponse({speech:"We are able to get the account information",text:"We are able to get the account information"}));
+	}).catch((err)=>{
+        console.log('error',err);
+	    conv.ask(new SimpleResponse({speech:"Error while fetching info",text:"Error while fetching info"}));});	
 });
 
 var port = process.env.PORT || 3000;
