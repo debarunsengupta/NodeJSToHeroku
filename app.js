@@ -75,23 +75,16 @@ app.intent('connect_salesforce',(conv,params)=>{
 });
 
 app.intent('AccountName',(conv,params)=>{
-	
-    console.log('Inside');
-	  console.log('params-->'+JSON.stringify(params));
+
 	console.log('params fetched-->'+JSON.stringify(params.AccountName));
 	 console.log('conv.arguments-->'+JSON.stringify(conv.arguments));
-	 console.log('The value fetched is:'+name);
+	accountCreation(params.AccountName).then((res)=>{
+		conv.ask(new SimpleResponse({speech:"Account Successfully created.",text:"Account created successfully."}));
+	}).catch((error)=>{
+		conv.ask(new SimpleResponse({speech:"Error creating account.",text:"Error creating account."}));
+	})
 	
-	accountCreation(params.AccountName).then((resp)=>{
-	console.log(resp);
-	conv.ask(new SimpleResponse({speech:"Account has been created successfully",text:"Account has been created successfully"}));
-	},(error) => {
-  console.log('Promise rejected while account creation.');
-  console.log(error.message);
-conv.ask(new SimpleResponse({speech:"Error Encountered while Account Creation",text:"Error Encountered while Account Creation"}));
-//conv.ask(new SimpleResponse({speech:"Error while connecting to salesforce",text:"Error while connecting to salesforce"}));
-
-});
+	
 
 });
 
