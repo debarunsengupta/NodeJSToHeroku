@@ -57,9 +57,9 @@ app.intent('connect_salesforce',(conv,params)=>{
 app.intent('AccountName',(conv,params)=>{
     console.log('Inside');
 	  console.log('params-->'+JSON.stringify(params));
-	console.log('params fetched-->'+JSON.stringify(params.actName));
+	console.log('params fetched-->'+JSON.stringify(params.AccountName));
 	 console.log('conv.arguments-->'+JSON.stringify(conv.arguments));
-	 name=params.actName;
+	 name=params.AccountName;
 	 console.log('The value fetched is:'+name);
 	   	accountCreation.then((resp)=>{
 	console.log(resp);
