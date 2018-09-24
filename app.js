@@ -116,7 +116,7 @@ app.intent('getAccInfo',(conv,params)=>{
            
        }
 		strName=strName.splice(0,-1);
-		conv.ask(new SimpleResponse({speech:"We are able to get the account information"+strName,text:"We are able to get the account information"+strName}));
+		conv.ask(new SimpleResponse({speech:"We are able to get the account information: "+strName,text:"We are able to get the account information: "+strName}));
 	}).catch((err)=>{
         console.log('error',err);
 	    conv.ask(new SimpleResponse({speech:"Error while fetching info",text:"Error while fetching info"}));});	
