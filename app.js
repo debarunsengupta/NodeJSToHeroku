@@ -110,8 +110,8 @@ app.intent('getAccInfo',(conv,params)=>{
 	return accountRetrieval(params.days).then((resp)=>{
         console.log('response',resp);
         for (var i = 0; i < resp.records.length; i++) {
-            console.log("record name: : " + result.records[i].Name);
-            console.log("record id: : " + result.records[i].Id);
+            console.log("record name: : " + resp.records[i].Name);
+            console.log("record id: : " + resp.records[i].Id);
             strName += resp.records[i].Name + ',';
            
        }
