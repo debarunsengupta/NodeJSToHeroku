@@ -5,7 +5,7 @@ const http = require('https');
 const bodyParser=require('body-parser');
 const jsforce = require('jsforce'); 
 const server = express();
-
+var name;
 var conn = new jsforce.Connection({ 
     loginUrl: 'https://login.salesforce.com', //'https://login.salesforce.com', 
     version: '43.0' 
@@ -30,6 +30,16 @@ var signIN=new Promise((resolve,reject)=>{
 	});
 });
 
+var accountCreation=new Promise((resolve,reject)=>{
+conn.sobject("Account").create({ Name : 'My Account google assistant' }, function(err, ret) {
+  if (err || !ret.success) { return reject(err); }
+  else
+  {
+	  resolve(ret);
+  }
+ 
+});
+});
 app.intent('connect_salesforce',(conv,params)=>{
     
    	signIN.then((resp)=>{
@@ -47,10 +57,18 @@ app.intent('connect_salesforce',(conv,params)=>{
 app.intent('AccountName',(conv,params)=>{
     console.log('Inside');
 	  console.log('params-->'+JSON.stringify(params));
-	console.log('params fetched-->'+JSON.stringify(params.objName));
+	console.log('params fetched-->'+JSON.stringify(params.actName));
 	 console.log('conv.arguments-->'+JSON.stringify(conv.arguments));
-const explicit = conv.arguments.get('objName'); // also retrievable with explicit arguments.get
-console.log('the val is :'+explicit);
+	 name=params.actName;
+	 console.log('The value fetched is:'+name);
+	   	accountCreation.then((resp)=>{
+	console.log(resp);
+	conv.ask(new SimpleResponse({speech:"Account has been created successfully",text:"Account has been created successfully"}));
+	},(error) => {
+  console.log('Promise rejected.');
+  console.log(error.message);
+});
+
 });
 
 var port = process.env.PORT || 3000;
