@@ -30,6 +30,8 @@ var signIN=new Promise((resolve,reject)=>{
 	});
 });
 
+function test(param)
+{
 var accountCreation=new Promise((resolve,reject)=>{
 	
 	conn.login(process.env.username, process.env.pass, function(err, res){
@@ -37,7 +39,7 @@ var accountCreation=new Promise((resolve,reject)=>{
 		else{
 			//resolve(res);
 			
-	conn.sobject("Account").create({ Name : name }, function(err, ret) {
+	conn.sobject("Account").create({ Name : param }, function(err, ret) {
       if (err || !ret.success) { return reject(err); }
       else
        {
@@ -49,6 +51,7 @@ var accountCreation=new Promise((resolve,reject)=>{
 		}
 	});
 });
+}
 app.intent('connect_salesforce',(conv,params)=>{
     
    	signIN.then((resp)=>{
@@ -66,12 +69,14 @@ app.intent('connect_salesforce',(conv,params)=>{
 });
 
 app.intent('AccountName',(conv,params)=>{
+	
     console.log('Inside');
 	  console.log('params-->'+JSON.stringify(params));
 	console.log('params fetched-->'+JSON.stringify(params.AccountName));
 	 console.log('conv.arguments-->'+JSON.stringify(conv.arguments));
 	 name=params.AccountName;
 	 console.log('The value fetched is:'+name);
+	test(params.AccountName);
 	   	accountCreation.then((resp)=>{
 	console.log(resp);
 	conv.ask(new SimpleResponse({speech:"Account has been created successfully",text:"Account has been created successfully"}));
