@@ -31,28 +31,28 @@ var signIN=new Promise((resolve,reject)=>{
 });
 
 
-var accountCreation=new Promise((resolve,reject)=>{
+var accountCreation=function (acctName){
+	return new Promise((resolve,reject)=>{
 	
-	conn.login(process.env.username, process.env.pass, function(err, res){
-		if(err){reject(err);}
-		else{
-			//resolve(res);
-		if(name !='' && name !=null)
+		conn.login(process.env.username, process.env.pass, function(err, res){
+			if(err){reject(err);}
+			else{
+				//resolve(res);
+			
+			   
+		conn.sobject("Account").create({ Name : acctName }, function(err, ret) {
+		  if (err || !ret.success) { return reject(err); }
+		  else
 		   {
-		   
-	conn.sobject("Account").create({ Name : name }, function(err, ret) {
-      if (err || !ret.success) { return reject(err); }
-      else
-       {
-	  resolve(ret);
-      }
- 
-      });
-		}
-		
-		}
-	});
+		  resolve(ret);
+		  }
+	 
+		  });
+			
+			}
+		});
 });
+}
 
 app.intent('connect_salesforce',(conv,params)=>{
     
@@ -76,11 +76,9 @@ app.intent('AccountName',(conv,params)=>{
 	  console.log('params-->'+JSON.stringify(params));
 	console.log('params fetched-->'+JSON.stringify(params.AccountName));
 	 console.log('conv.arguments-->'+JSON.stringify(conv.arguments));
-	 name=params.AccountName;
 	 console.log('The value fetched is:'+name);
-	var test=function()
-	{
-	   	accountCreation.then((resp)=>{
+	
+	accountCreation(params.AccountName).then((resp)=>{
 	console.log(resp);
 	conv.ask(new SimpleResponse({speech:"Account has been created successfully",text:"Account has been created successfully"}));
 	},(error) => {
@@ -90,11 +88,6 @@ conv.ask(new SimpleResponse({speech:"Error Encountered while Account Creation",t
 //conv.ask(new SimpleResponse({speech:"Error while connecting to salesforce",text:"Error while connecting to salesforce"}));
 
 });
-	};
-	if(name !='' && name !=null)
-	   {
-	test();
-         }
 
 });
 
