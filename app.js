@@ -46,8 +46,8 @@ app.intent('connect_salesforce',(conv,params)=>{
 
 app.intent('AccountName',(conv,params)=>{
     console.log('Inside');
-	  console.log('params-->'+params);
-	 console.log('conv.arguments-->'+conv.arguments);
+	  console.log('params-->'+JSON.stringify(params));
+	 console.log('conv.arguments-->'+JSON.stringify(conv.arguments));
 const explicit = conv.arguments.get('objName'); // also retrievable with explicit arguments.get
 console.log('the val is :'+explicit);
 });
