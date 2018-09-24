@@ -115,6 +115,7 @@ app.intent('getAccInfo',(conv,params)=>{
             strName += resp.records[i].Name + ',';
            
        }
+		strName=strName.splice(0,-1);
 		conv.ask(new SimpleResponse({speech:"We are able to get the account information"+strName,text:"We are able to get the account information"+strName}));
 	}).catch((err)=>{
         console.log('error',err);
