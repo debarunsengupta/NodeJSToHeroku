@@ -34,14 +34,20 @@ app.intent('connect_salesforce',(conv,params)=>{
     
    	signIN.then((resp)=>{
 	console.log(resp);
-		const explicit = conv.arguments.get('objName'); // also retrievable with explicit arguments.get
-		console.log('the val is :'+explicit);
+		//const explicit = conv.arguments.get('objName'); // also retrievable with explicit arguments.get
+		//console.log('the val is :'+explicit);
 
 		conv.ask(new SimpleResponse({speech:"We are able to connect to your account",text:"We are able to connect your account"}));
 	},(error) => {
   console.log('Promise rejected.');
   console.log(error.message);
 });
+});
+
+app.intent('AccountName',(conv,params)=>{
+    
+const explicit = conv.arguments.get('objName'); // also retrievable with explicit arguments.get
+console.log('the val is :'+explicit);
 });
 
 var port = process.env.PORT || 3000;
