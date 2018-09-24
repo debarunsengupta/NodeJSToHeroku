@@ -72,28 +72,14 @@ app.intent('AccountName',(conv,params)=>{
 	 console.log('conv.arguments-->'+JSON.stringify(conv.arguments));
 	 name=params.AccountName;
 	 console.log('The value fetched is:'+name);
-	   	signIN.then((resp)=>{
+	   	accountCreation.then((resp)=>{
 	console.log(resp);
-	conn.sobject("Account").create({ Name : name }, function(err, ret) {
-      if (err || !ret.success) 
-	  { 
-       conv.ask(new SimpleResponse({speech:"Error Encountered while Account Creation",text:"Error Encountered while Account Creation"}));
-      }
-      else
-       {
-	  //resolve(ret);
-	  	conv.ask(new SimpleResponse({speech:"Account has been created successfully",text:"Account has been created successfully"}));
-
-      }
- 
-      });
-	  
-	//conv.ask(new SimpleResponse({speech:"Account has been created successfully",text:"Account has been created successfully"}));
+	conv.ask(new SimpleResponse({speech:"Account has been created successfully",text:"Account has been created successfully"}));
 	},(error) => {
   console.log('Promise rejected while account creation.');
   console.log(error.message);
-//conv.ask(new SimpleResponse({speech:"Error Encountered while Account Creation",text:"Error Encountered while Account Creation"}));
-conv.ask(new SimpleResponse({speech:"Error while connecting to salesforce",text:"Error while connecting to salesforce"}));
+conv.ask(new SimpleResponse({speech:"Error Encountered while Account Creation",text:"Error Encountered while Account Creation"}));
+//conv.ask(new SimpleResponse({speech:"Error while connecting to salesforce",text:"Error while connecting to salesforce"}));
 
 });
 
