@@ -91,7 +91,7 @@ app.intent('connect_salesforce',(conv,params)=>{
 		//console.log('the val is :'+explicit);
 
 		conv.ask(new SimpleResponse({speech:"We are able to connect to your account",text:"We are able to connect your account"}));
-		conv.ask(new Suggestions('get me the accounts that were created recently'));
+		conv.ask(new Suggestions('fetch accounts'));
 	},(error) => {
   console.log('Promise rejected.');
   console.log(error.message);
