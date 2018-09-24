@@ -91,18 +91,7 @@ app.intent('connect_salesforce',(conv,params)=>{
 		//console.log('the val is :'+explicit);
 
 		conv.ask(new SimpleResponse({speech:"We are able to connect to your account",text:"We are able to connect your account"}));
-		conv.ask(new Suggestions('get me the accounts that were created recently'), new BasicCard({
-    title: 'Card Title',
-    image: { // Mostly, you can provide just the raw API objects
-      url: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png',
-      accessibilityText: 'Google Logo',
-    },
-    buttons: new Button({ // Wrapper for complex sub Objects
-      title: 'Button Title',
-      url: 'https://www.google.com',
-    }),
-    display: 'WHITE',
-  }));
+		conv.ask(new Suggestions('get me the accounts that were created recently'));
 	},(error) => {
   console.log('Promise rejected.');
   console.log(error.message);
