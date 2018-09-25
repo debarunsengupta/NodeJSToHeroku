@@ -91,7 +91,7 @@ app.intent('connect_salesforce',(conv,params)=>{
 		//console.log('the val is :'+explicit);
 
 		conv.ask(new SimpleResponse({speech:"We are able to connect to your account",text:"We are able to connect your account"}));
-		conv.ask(new Suggestions('fetch accounts'));
+		conv.ask(new Suggestions('Create New Account'));
 	},(error) => {
   console.log('Promise rejected.');
   console.log(error.message);
@@ -103,6 +103,7 @@ app.intent('connect_salesforce',(conv,params)=>{
 app.intent('AccountName',(conv,params)=>{
 	return accountCreation(params.AccountName).then((resp)=>{
 		conv.ask(new SimpleResponse({speech:"We are able to create your account named:"+params.AccountName,text:"We are able to create your account named:"+params.AccountName}));
+		conv.ask(new Suggestions('Fetch Recent Accounts'));
 	}).catch((err)=>{
 	conv.ask(new SimpleResponse({speech:"Error while creating salesforce account",text:"Error while creating salesforce account"}));});	
 });
@@ -120,6 +121,7 @@ app.intent('getAccInfo',(conv,params)=>{
        }
 		strName=strName.slice(0,-1);
 		conv.ask(new SimpleResponse({speech:"We are able to get the account information: "+strName,text:"We are able to get the account information: "+strName}));
+		
 	}).catch((err)=>{
         console.log('error',err);
 	    conv.ask(new SimpleResponse({speech:"Error while fetching info",text:"Error while fetching info"}));});	
