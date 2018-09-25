@@ -96,6 +96,13 @@ app.intent('connect_salesforce',(conv,params)=>{
   console.log('Promise rejected.');
   console.log(error.message);
  conv.ask(new SimpleResponse({speech:"Error while connecting to salesforce",text:"Error while connecting to salesforce"}));
+		
+		conv.ask(new BasicCard({
+  text: 'testing',
+  subtitle: 'This is a subtitle',
+  title: 'Title: this is a title'
+  display: 'CROPPED',
+}));
 
 });
 });
