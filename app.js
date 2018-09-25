@@ -100,7 +100,7 @@ app.intent('connect_salesforce',(conv,params)=>{
 		conv.ask(new BasicCard({
   text: 'testing',
   subtitle: 'This is a subtitle',
-  title: 'Title: this is a title'
+  title: 'Title: this is a title',
   display: 'CROPPED'
 }));
 
