@@ -101,7 +101,11 @@ app.intent('connect_salesforce',(conv,params)=>{
 		
 		 conv.ask(new Suggestions('Create New Account'), new BasicCard({
     title: 'Card Title',
-    display: 'WHITE',
+     image: { // Mostly, you can provide just the raw API objects
+      url: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png',
+      accessibilityText: 'Google Logo',
+    },
+    display: 'WHITE'
   }));
 		
 		
