@@ -101,7 +101,7 @@ app.intent('connect_salesforce',(conv,params)=>{
   text: 'testing',
   subtitle: 'This is a subtitle',
   title: 'Title: this is a title'
-  display: 'CROPPED',
+  display: 'CROPPED'
 }));
 
 });
