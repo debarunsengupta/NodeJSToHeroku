@@ -91,18 +91,20 @@ app.intent('connect_salesforce',(conv,params)=>{
 		//console.log('the val is :'+explicit);
 
 		conv.ask(new SimpleResponse({speech:"We are able to connect to your account",text:"We are able to connect your account"}));
-		conv.ask(new Suggestions('Create New Account'));
-	},(error) => {
-  console.log('Promise rejected.');
-  console.log(error.message);
- conv.ask(new SimpleResponse({speech:"Error while connecting to salesforce",text:"Error while connecting to salesforce"}));
-		
+				
 		conv.ask(new BasicCard({
   text: 'testing',
   subtitle: 'This is a subtitle',
   title: 'Title: this is a title',
   display: 'CROPPED'
 }));
+		conv.ask(new Suggestions('Create New Account'));
+		
+	},(error) => {
+  console.log('Promise rejected.');
+  console.log(error.message);
+ conv.ask(new SimpleResponse({speech:"Error while connecting to salesforce",text:"Error while connecting to salesforce"}));
+
 
 });
 });
