@@ -92,13 +92,20 @@ app.intent('connect_salesforce',(conv,params)=>{
 
 		conv.ask(new SimpleResponse({speech:"We are able to connect to your account",text:"We are able to connect your account"}));
 				
-		conv.ask(new BasicCard({
+		/*conv.ask(new BasicCard({
   text: 'testing',
   subtitle: 'This is a subtitle',
   title: 'Title: this is a title',
   display: 'CROPPED'
-}));
-		conv.ask(new Suggestions('Create New Account'));
+}));*/
+		
+		 conv.ask(new Suggestions('Create New Account'), new BasicCard({
+    title: 'Card Title',
+    display: 'WHITE',
+  }));
+		
+		
+		//conv.ask(new Suggestions('Create New Account'));
 		
 	},(error) => {
   console.log('Promise rejected.');
