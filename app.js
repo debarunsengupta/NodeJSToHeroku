@@ -100,12 +100,12 @@ app.intent('connect_salesforce',(conv,params)=>{
 }));*/
 		
 		 conv.ask(new Suggestions('Create New Account'), new BasicCard({
-    title: 'Card Title',
+    title: 'Create New Account',
      image: { // Mostly, you can provide just the raw API objects
-      url: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png',
-      accessibilityText: 'Google Logo',
+      url: 'https://www.google.co.in/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwjZ49iex9XdAhXITX0KHWAJA80QjRx6BAgBEAU&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FSalesforce.com&psig=AOvVaw0EmYZ_LBdUgX6DtXH8vIu2&ust=1537944332258855',
+      accessibilityText: 'Salesforce Logo',
     },
-    display: 'WHITE'
+    display: 'CROPPED'
   }));
 		
 		
