@@ -104,6 +104,7 @@ conn.login(process.env.username, process.env.pass, function(err, res){
 		      var options = { Authorization: header};
 			var url=conn.instanceUrl+"/services/apexrest/Lead/00Q6F000012xmpT";
 				console.log('conn.instanceUrl:'+conn.instanceUrl);
+				console.log('url:'+url);
 				conn.apex.get(url,options,function(err, res) {
   if (err) {
 	  reject(err);
