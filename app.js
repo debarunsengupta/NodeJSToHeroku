@@ -121,7 +121,7 @@ function leadid(leadname)
 			if(err){reject(err);}
 			else{
 			
-		          conn.query('select Id,Name from Lead where Name =leadname', function(err, result){
+		          conn.query('select Id,Name from Lead where Name ='+leadname, function(err, result){
                     if (err) {
                         console.log('err in fetching lead id:'+err);
                     }
@@ -196,6 +196,7 @@ app.intent('getAccInfo',(conv,params)=>{
 app.intent('ConvertLead',(conv,params)=>{
     console.log('lead name:'+params.leadname);
 	 var leadidfetched=leadid(params.leadname);
+	console.log('lead id here:'+leadidfetched);
 	return convertlead(params.leadname,leadidfetched).then((resp)=>{
         console.log('response',resp);
         /*for (var i = 0; i < resp.records.length; i++) {
