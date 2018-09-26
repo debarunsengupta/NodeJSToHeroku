@@ -198,16 +198,18 @@ app.intent('getAccInfo',(conv,params)=>{
 
 app.intent('ConvertLead',(conv,params)=>{
     console.log('lead name:'+params.leadname);
+	var reqleadid;
 	 var leadidfetched=leadid(params.leadname,
 				 function(response){
 		 console.log('lead id here:'+response);
+		 reqleadid=response;
 	 });
 	
 
 	
 	
 	
-	return convertlead(params.leadname,leadidfetched).then((resp)=>{
+	return convertlead(params.leadname,reqleadid).then((resp)=>{
         console.log('response',resp);
         /*for (var i = 0; i < resp.records.length; i++) {
             console.log("record name: : " + resp.records[i].Name);
