@@ -83,10 +83,10 @@ var accountRetrieval=function (days){
 });
 }
 
-var convertlead=function (leadname){
+var convertlead=function (leadname,leadidfetched){
 	return new Promise((resolve,reject)=>{
 		console.log('leadname -->',leadname);
-		
+		console.log('leadidfetched -->',leadidfetched);
 
 conn.login(process.env.username, process.env.pass, function(err, res){
 			if(err){reject(err);}
@@ -94,10 +94,10 @@ conn.login(process.env.username, process.env.pass, function(err, res){
 				console.log('conn.accessToken:'+conn.accessToken);
 				var header='Bearer '+conn.accessToken;
 		      var options = { Authorization: header};
-			var url=conn.instanceUrl+"/services/apexrest/Lead/00Q6F000012xmpT";
+			//var url=conn.instanceUrl+"/services/apexrest/Lead/00Q6F000012xmpT";
 				console.log('conn.instanceUrl:'+conn.instanceUrl);
-				console.log('url:'+url);
-				conn.apex.get("/Lead/00Q6F000012xmpL",options,function(err, res) {
+				//console.log('url:'+url);
+				conn.apex.get("/Lead/"+leadidfetched,options,function(err, res) {
   if (err) {
 	  reject(err);
 	  //return console.error(err); 
@@ -113,6 +113,27 @@ conn.login(process.env.username, process.env.pass, function(err, res){
             }
 		});
 });
+}
+
+function leadid(leadname)
+{
+	conn.login(process.env.username, process.env.pass, function(err, res){
+			if(err){reject(err);}
+			else{
+			
+		          conn.query('select Id,Name from Lead where Name =leadname', function(err, result){
+                    if (err) {
+                        console.log('err in fetching lead id:'+err);
+                    }
+                    else{
+						return res.records[0].Id;
+                        
+                    }
+                });
+            }
+		});
+	
+	
 }
 
 app.intent('connect_salesforce',(conv,params)=>{
@@ -164,6 +185,7 @@ app.intent('getAccInfo',(conv,params)=>{
        }
 		strName=strName.slice(0,-1);
 		conv.ask(new SimpleResponse({speech:"We are able to get the account information: "+strName,text:"We are able to get the account information: "+strName}));
+		conv.ask(new Suggestions('Convert Lead'));
 		
 	}).catch((err)=>{
         console.log('error',err);
@@ -173,7 +195,8 @@ app.intent('getAccInfo',(conv,params)=>{
 
 app.intent('ConvertLead',(conv,params)=>{
     console.log('lead name:'+params.leadname);
-	return convertlead(params.leadname).then((resp)=>{
+	 var leadidfetched=leadid(params.leadname);
+	return convertlead(params.leadname,leadidfetched).then((resp)=>{
         console.log('response',resp);
         /*for (var i = 0; i < resp.records.length; i++) {
             console.log("record name: : " + resp.records[i].Name);
@@ -182,7 +205,7 @@ app.intent('ConvertLead',(conv,params)=>{
            
        }
 		strName=strName.slice(0,-1);*/
-		conv.ask(new SimpleResponse({speech:"Done",text:"Done"}));
+		conv.ask(new SimpleResponse({speech:"Lead Converted Successfully",text:"Lead Converted Successfully"}));
 		
 	}).catch((err)=>{
         console.log('error msg:',err);
