@@ -200,7 +200,7 @@ app.intent('ConvertLead',(conv,params)=>{
     console.log('lead name:'+params.leadname);
 	 var leadidfetched=leadid(params.leadname,
 				 function(response){
-		 console.log('lead id here:'+leadidfetched);
+		 console.log('lead id here:'+response);
 	 });
 	
 
