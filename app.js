@@ -250,10 +250,10 @@ app.intent('ConvertLead',(conv,params)=>{
 	 });
 	 if(reqleadid=='success')
 	 {
-		
+		 var str='The Lead converted account name is ';
 		 leaddetails(params.leadname,function(response)
 		 {
-			  var str='The Lead converted account name is ';
+			 
 			 for (var i = 0; i < response.records.length; i++) {
 				 
             console.log("record name: : " + response.records[i].ConvertedAccount.Name);
