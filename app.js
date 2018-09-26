@@ -250,6 +250,9 @@ app.intent('ConvertLead',(conv,params)=>{
 		 leaddetails(params.leadname,function(response)
 		 {
 			 console.log('Inside called 2');
+			 console.log('response here:',response);
+			  console.log('response records here:',response.records);
+			  console.log('response records here length:',response.records.length);
 			 for (var i = 0; i < response.records.length; i++) {
 				  console.log('Inside called 6');
             console.log("record name: : " + response.records[i].ConvertedAccount.Name);
