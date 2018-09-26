@@ -144,7 +144,7 @@ function leaddetails(leadname,callback)
 	conn.login(process.env.username, process.env.pass, function(err, res){
 			if(err){reject(err);}
 			else{
-			  console.log('Query is:'+'select Id,ConvertedAccount.Name, ConvertedContact.Name, ConvertedOpportunity.Name from Lead where Id =\''+leadname+'\'');
+			  console.log('Query is:'+'select Id,ConvertedAccount.Name, ConvertedContact.Name, ConvertedOpportunity.Name from Lead where Name =\''+leadname+'\'');
 		          conn.query('select Id,ConvertedAccount.Name, ConvertedContact.Name, ConvertedOpportunity.Name from Lead where Name =\''+leadname+'\'', function(err, result){
                     if (err) {
                         console.log('err in fetching lead id:'+err);
@@ -262,9 +262,10 @@ app.intent('ConvertLead',(conv,params)=>{
             //console.log("record id: : " + resp.records[i].Id);
             //strName += resp.records[i].Name + ',';
            
-         }
+                 }
+			  conv.ask(new SimpleResponse({speech:str,text:str}));
 		 });
-		 conv.ask(new SimpleResponse({speech:str,text:str}));
+		
 	 }
 	 else
 	 {
