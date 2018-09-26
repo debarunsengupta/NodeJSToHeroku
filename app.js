@@ -224,7 +224,8 @@ app.intent('ConvertLead',(conv,params)=>{
     console.log('lead name:'+params.leadname);
 	var reqleadid;
 	var leadidfet;
-	var str='test';
+	var str='';
+	var finalresult;
 	 var leadidfetched=leadid(params.leadname,
 				 function(response){
 		 console.log('lead id here:'+response);
@@ -260,6 +261,7 @@ app.intent('ConvertLead',(conv,params)=>{
 			str+=response.records[0].ConvertedAccount["Name"]+',';
 			str+='The Lead converted contact name is ' +response.records[0].ConvertedContact["Name"]+',';
 			str+='The Lead converted opportunity name is '+response.records[0].ConvertedOpportunity["Name"];
+			 finalresult='success';
 			console.log('str:'+str);
               });
 		     console.log('str here:'+str);
@@ -277,7 +279,10 @@ app.intent('ConvertLead',(conv,params)=>{
 		});
 	 });
 	console.log('str new :'+str);
+	 if(finalresult=='success')
+	 {
 	conv.ask(new SimpleResponse({speech:str,text:str}));
+	 }
 });
 
 var port = process.env.PORT || 3000;
