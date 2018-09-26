@@ -255,10 +255,11 @@ app.intent('ConvertLead',(conv,params)=>{
 			  //console.log('response records here length:',response.records.length);
 			
 			console.log('Inside called 6');
-				
-			str+=response.records[0].ConvertedAccount.Name;
+				console.log('response.records[0].ConvertedAccount.Name',response.records[0].ConvertedAccount["Name"]);
+			str+=response.records[0].ConvertedAccount["Name"];
 			str+='The Lead converted contact name is ' +response.records[0].ConvertedContact.Name;
 			str+='The Lead converted opportunity name is '+response.records[0].ConvertedOpportunity.Name;
+			console.log('str:'+str);
               });
 		 conv.ask(new SimpleResponse({speech:str,text:str}));
 	    }
