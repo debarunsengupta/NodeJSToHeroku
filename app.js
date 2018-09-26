@@ -232,6 +232,7 @@ app.intent('ConvertLead',(conv,params)=>{
 		 
 		 return convertlead(params.leadname,response).then((resp)=>{
         console.log('response',resp);
+		 console.log('Inside called 3');
         /*for (var i = 0; i < resp.records.length; i++) {
             console.log("record name: : " + resp.records[i].Name);
             console.log("record id: : " + resp.records[i].Id);
@@ -242,20 +243,15 @@ app.intent('ConvertLead',(conv,params)=>{
 		reqleadid='success';
 		//conv.ask(new SimpleResponse({speech:"Lead Converted Successfully",text:"Lead Converted Successfully"}));
 		
-	}).catch((err)=>{
-        console.log('error msg:',err);
-		reqleadid='error';
-	    //conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));
-		});
-	 });
-	 if(reqleadid=='success')
-	 {
+		 if(reqleadid=='success')
+	     {
+			 console.log('Inside called 1');
 		 var str='The Lead converted account name is ';
 		 leaddetails(params.leadname,function(response)
 		 {
-			 
+			 console.log('Inside called 2');
 			 for (var i = 0; i < response.records.length; i++) {
-				 
+				  console.log('Inside called 6');
             console.log("record name: : " + response.records[i].ConvertedAccount.Name);
 			str+=response.records[i].ConvertedAccount.Name;
 			str+='The Lead converted contact name is ' +response.records[i].ConvertedContact.Name;
@@ -267,11 +263,19 @@ app.intent('ConvertLead',(conv,params)=>{
 			 
 		 });
 		 conv.ask(new SimpleResponse({speech:str,text:str}));
-	 }
+	    }
 	 else if(reqleadid=='error')
 	 {
 		 conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));
 	 }
+		
+	}).catch((err)=>{
+        console.log('error msg:',err);
+		reqleadid='error';
+	    conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));
+		});
+	 });
+	
 	
 });
 
