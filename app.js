@@ -90,7 +90,9 @@ var convertlead=function (leadname){
 			if(err){reject(err);}
 			else{
 		      var options = { Authorization: 'Bearer 00D6F000001NSYQ!AQQAQLlpjBIt0CseEeLpnMlTGJbXj4UVqanCV8G0BBFyE9ylCGuza0xPDZSRdJzlKeaELUUCuS0VxHyyhVooC5TdMxQRietb'};
-			conn.apex.get("https://sagniklightning-dev-ed.my.salesforce.com/services/apexrest/Lead/00Q6F000012xmpf",options,function(err, res) {
+			var url=conn.instanceUrl+"/services/apexrest/Lead/00Q6F000012xmpK";
+				console.log('conn.instanceUrl:'+conn.instanceUrl);
+				conn.apex.get(url,options,function(err, res) {
   if (err) {
 	  reject(err);
 	  //return console.error(err); 
