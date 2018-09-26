@@ -89,8 +89,8 @@ var convertlead=function (leadname){
 		conn.login(process.env.username, process.env.pass, function(err, res){
 			if(err){reject(err);}
 			else{
-				var options = { Authorization: 'Bearer 00D6F000001NSYQ!AQQAQLlpjBIt0CseEeLpnMlTGJbXj4UVqanCV8G0BBFyE9ylCGuza0xPDZSRdJzlKeaELUUCuS0VxHyyhVooC5TdMxQRietb'};
-			conn.apex.get("https://sagniklightning-dev-ed.my.salesforce.com/services/apexrest/Lead/00Q6F000012xmpY",function(err, res) {
+		      var options = { Authorization: 'Bearer 00D6F000001NSYQ!AQQAQLlpjBIt0CseEeLpnMlTGJbXj4UVqanCV8G0BBFyE9ylCGuza0xPDZSRdJzlKeaELUUCuS0VxHyyhVooC5TdMxQRietb'};
+			conn.apex.get("https://sagniklightning-dev-ed.my.salesforce.com/services/apexrest/Lead/00Q6F000012xmpY",options,function(err, res) {
   if (err) {
 	  reject(err);
 	  //return console.error(err); 
