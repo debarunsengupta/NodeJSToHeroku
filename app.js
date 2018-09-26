@@ -97,7 +97,7 @@ conn.login(process.env.username, process.env.pass, function(err, res){
 			var url=conn.instanceUrl+"/services/apexrest/Lead/00Q6F000012xmpT";
 				console.log('conn.instanceUrl:'+conn.instanceUrl);
 				console.log('url:'+url);
-				conn.apex.get("/Lead/00Q6F000012xmpT",options,function(err, res) {
+				conn.apex.get("/Lead/00Q6F000012xmpL",options,function(err, res) {
   if (err) {
 	  reject(err);
 	  //return console.error(err); 
