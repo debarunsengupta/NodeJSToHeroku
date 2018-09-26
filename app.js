@@ -87,15 +87,7 @@ var convertlead=function (leadname){
 	return new Promise((resolve,reject)=>{
 		console.log('leadname -->',leadname);
 		
-		var conn = new jsforce.Connection({
-  oauth2 : {
-    // you can change loginUrl to connect to sandbox or prerelease env.
-    // loginUrl : 'https://test.salesforce.com',
-    clientId : '3MVG9YDQS5WtC11qk.ArHtRRClgxBVv6.UbLdC7H6Upq8xs2G1EepruAJuuuogDIdevglKadHRNQDhITAnhif',
-    clientSecret : '4635706799290406853',
-    redirectUri : 'https://sagniklightning-dev-ed.my.salesforce.com/unused.apex'
-  }
-});
+
 conn.login(process.env.username, process.env.pass, function(err, res){
 			if(err){reject(err);}
 			else{
@@ -105,7 +97,7 @@ conn.login(process.env.username, process.env.pass, function(err, res){
 			var url=conn.instanceUrl+"/services/apexrest/Lead/00Q6F000012xmpT";
 				console.log('conn.instanceUrl:'+conn.instanceUrl);
 				console.log('url:'+url);
-				conn.apex.get(url,options,function(err, res) {
+				conn.apex.get("/Lead/00Q6F000012xmpT",options,function(err, res) {
   if (err) {
 	  reject(err);
 	  //return console.error(err); 
