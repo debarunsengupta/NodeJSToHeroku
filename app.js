@@ -248,11 +248,12 @@ app.intent('ConvertLead',(conv,params)=>{
 	    //conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));
 		});
 	 });
-	 if(reqleadid='success')
+	 if(reqleadid=='success')
 	 {
-		 var str='The Lead converted account name is ';
+		
 		 leaddetails(params.leadname,function(response)
 		 {
+			  var str='The Lead converted account name is ';
 			 for (var i = 0; i < response.records.length; i++) {
 				 
             console.log("record name: : " + response.records[i].ConvertedAccount.Name);
@@ -263,11 +264,11 @@ app.intent('ConvertLead',(conv,params)=>{
             //strName += resp.records[i].Name + ',';
            
                  }
-			  conv.ask(new SimpleResponse({speech:str,text:str}));
+			 
 		 });
-		
+		 conv.ask(new SimpleResponse({speech:str,text:str}));
 	 }
-	 else
+	 else if(reqleadid=='error')
 	 {
 		 conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));
 	 }
