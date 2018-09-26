@@ -203,13 +203,8 @@ app.intent('ConvertLead',(conv,params)=>{
 				 function(response){
 		 console.log('lead id here:'+response);
 		 reqleadid=response;
-	 });
-	
-
-	
-	
-	
-	return convertlead(params.leadname,reqleadid).then((resp)=>{
+		 
+		 return convertlead(params.leadname,response).then((resp)=>{
         console.log('response',resp);
         /*for (var i = 0; i < resp.records.length; i++) {
             console.log("record name: : " + resp.records[i].Name);
@@ -222,7 +217,9 @@ app.intent('ConvertLead',(conv,params)=>{
 		
 	}).catch((err)=>{
         console.log('error msg:',err);
-	    conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));});	
+	    conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));});
+	 });
+	
 });
 
 var port = process.env.PORT || 3000;
