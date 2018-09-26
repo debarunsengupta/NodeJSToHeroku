@@ -262,7 +262,7 @@ app.intent('ConvertLead',(conv,params)=>{
 			str+='The Lead converted opportunity name is '+response.records[0].ConvertedOpportunity["Name"];
 			console.log('str:'+str);
               });
-		     console.log('str:'+str);
+		     console.log('str here:'+str);
 		 
 	    }
 	 else if(reqleadid=='error')
