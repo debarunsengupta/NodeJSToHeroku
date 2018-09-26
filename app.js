@@ -269,7 +269,7 @@ app.intent('ConvertLead',(conv,params)=>{
 	 {
 		 conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));
 	 }
-		conv.ask(new SimpleResponse({speech:str,text:str}));
+		//conv.ask(new SimpleResponse({speech:str,text:str}));
 	}).catch((err)=>{
         console.log('error msg:',err);
 		reqleadid='error';
@@ -277,7 +277,7 @@ app.intent('ConvertLead',(conv,params)=>{
 		});
 	 });
 	
-	
+	conv.ask(new SimpleResponse({speech:'hello world',text:'hello world'}));
 });
 
 var port = process.env.PORT || 3000;
