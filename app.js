@@ -89,7 +89,7 @@ var convertlead=function (leadname){
 		conn.login(process.env.username, process.env.pass, function(err, res){
 			if(err){reject(err);}
 			else{
-				
+				var options = { Authorization: 'Bearer 00D6F000001NSYQ!AQQAQLlpjBIt0CseEeLpnMlTGJbXj4UVqanCV8G0BBFyE9ylCGuza0xPDZSRdJzlKeaELUUCuS0VxHyyhVooC5TdMxQRietb'};
 			conn.apex.get("https://sagniklightning-dev-ed.my.salesforce.com/services/apexrest/Lead/00Q6F000012xmpY",function(err, res) {
   if (err) {
 	  reject(err);
@@ -178,7 +178,7 @@ app.intent('ConvertLead',(conv,params)=>{
 		conv.ask(new SimpleResponse({speech:"Done",text:"Done"}));
 		
 	}).catch((err)=>{
-        console.log('error',err);
+        console.log('error msg:',err);
 	    conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));});	
 });
 
