@@ -224,7 +224,7 @@ app.intent('ConvertLead',(conv,params)=>{
     console.log('lead name:'+params.leadname);
 	var reqleadid;
 	var leadidfet;
-	var str='';
+	var str='test';
 	 var leadidfetched=leadid(params.leadname,
 				 function(response){
 		 console.log('lead id here:'+response);
@@ -276,8 +276,8 @@ app.intent('ConvertLead',(conv,params)=>{
 	    conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));
 		});
 	 });
-	
-	conv.ask(new SimpleResponse({speech:str,text:str,textToSpeech: str}));
+	console.log('str new :'+str);
+	conv.ask(new SimpleResponse({speech:str,text:str}));
 });
 
 var port = process.env.PORT || 3000;
