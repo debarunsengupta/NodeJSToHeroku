@@ -83,6 +83,31 @@ var accountRetrieval=function (days){
 });
 }
 
+var convertlead=function (leadname){
+	return new Promise((resolve,reject)=>{
+		console.log('leadname -->',leadname);
+		conn.login(process.env.username, process.env.pass, function(err, res){
+			if(err){reject(err);}
+			else{
+				
+			conn.apex.get("https://sagniklightning-dev-ed.my.salesforce.com/services/apexrest/Lead/00Q6F000012xmpY",function(err, res) {
+  if (err) {
+	  reject(err);
+	  //return console.error(err); 
+	  }
+	  else
+	  {
+  console.log("response: ", res);
+  resolve(result);
+	  }
+  // the response object structure depends on the definition of apex class
+});
+		
+            }
+		});
+});
+}
+
 app.intent('connect_salesforce',(conv,params)=>{
     
    	signIN.then((resp)=>{
@@ -99,17 +124,8 @@ app.intent('connect_salesforce',(conv,params)=>{
   display: 'CROPPED'
 }));*/
 		
-		 conv.ask(new Suggestions('Create New Account'), new BasicCard({
-    title: 'Create New Account',
-     image: { // Mostly, you can provide just the raw API objects
-      url: 'https://www.google.co.in/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwjZ49iex9XdAhXITX0KHWAJA80QjRx6BAgBEAU&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FSalesforce.com&psig=AOvVaw0EmYZ_LBdUgX6DtXH8vIu2&ust=1537944332258855',
-      accessibilityText: 'Salesforce Logo',
-    },
-    display: 'CROPPED'
-  }));
-		
-		
-		//conv.ask(new Suggestions('Create New Account'));
+
+	conv.ask(new Suggestions('Create New Account'));
 		
 	},(error) => {
   console.log('Promise rejected.');
@@ -145,6 +161,25 @@ app.intent('getAccInfo',(conv,params)=>{
 	}).catch((err)=>{
         console.log('error',err);
 	    conv.ask(new SimpleResponse({speech:"Error while fetching info",text:"Error while fetching info"}));});	
+});
+
+
+app.intent('ConvertLead',(conv,params)=>{
+    console.log('lead name:'+params.leadname);
+	return convertlead(params.leadname).then((resp)=>{
+        console.log('response',resp);
+        /*for (var i = 0; i < resp.records.length; i++) {
+            console.log("record name: : " + resp.records[i].Name);
+            console.log("record id: : " + resp.records[i].Id);
+            strName += resp.records[i].Name + ',';
+           
+       }
+		strName=strName.slice(0,-1);*/
+		conv.ask(new SimpleResponse({speech:"Done",text:"Done"}));
+		
+	}).catch((err)=>{
+        console.log('error',err);
+	    conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));});	
 });
 
 var port = process.env.PORT || 3000;
