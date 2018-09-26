@@ -210,7 +210,7 @@ app.intent('ConvertLead',(conv,params)=>{
                     else{
 			    console.log("result:",result);
 			    console.log("result record:",typeof(result.records[0].Id));
-			  leadidfetched=result.records[0].Id;
+			  var leadidfetched=result.records[0].Id;
                         
                     }
                 });
