@@ -105,7 +105,7 @@ conn.login(process.env.username, process.env.pass, function(err, res){
 	  else
 	  {
   console.log("response: ", res);
-  resolve(result);
+  resolve(res);
 	  }
   // the response object structure depends on the definition of apex class
 });
