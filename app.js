@@ -219,7 +219,8 @@ app.intent('ConvertLead',(conv,params)=>{
 	}).catch((err)=>{
         console.log('error msg:',err);
 		reqleadid='error';
-	    //conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));});
+	    //conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));
+		});
 	 });
 	 if(reqleadid='success')
 	 {
@@ -227,7 +228,7 @@ app.intent('ConvertLead',(conv,params)=>{
 	 }
 	 else
 	 {
-		 conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));});
+		 conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));
 	 }
 	
 });
