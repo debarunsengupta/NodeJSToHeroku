@@ -139,13 +139,13 @@ function leadid(leadname,callback)
 	
 }
 
-function leaddetails(leadidfet,callback)
+function leaddetails(leadname,callback)
 {
 	conn.login(process.env.username, process.env.pass, function(err, res){
 			if(err){reject(err);}
 			else{
-			  console.log('Query is:'+'select Id,ConvertedAccount.Name, ConvertedContact.Name, ConvertedOpportunity.Name from Lead where Id =\''+leadidfet+'\'');
-		          conn.query('select Id,ConvertedAccount.Name, ConvertedContact.Name, ConvertedOpportunity.Name from Lead where Name =\''+leadidfet+'\'', function(err, result){
+			  console.log('Query is:'+'select Id,ConvertedAccount.Name, ConvertedContact.Name, ConvertedOpportunity.Name from Lead where Id =\''+leadname+'\'');
+		          conn.query('select Id,ConvertedAccount.Name, ConvertedContact.Name, ConvertedOpportunity.Name from Lead where Name =\''+leadname+'\'', function(err, result){
                     if (err) {
                         console.log('err in fetching lead id:'+err);
                     }
@@ -251,7 +251,7 @@ app.intent('ConvertLead',(conv,params)=>{
 	 if(reqleadid='success')
 	 {
 		 var str='The Lead converted account name is ';
-		 leaddetails(leadidfet,function(response)
+		 leaddetails(params.leadname,function(response)
 		 {
 			 for (var i = 0; i < response.records.length; i++) {
 				 
