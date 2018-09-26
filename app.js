@@ -86,11 +86,23 @@ var accountRetrieval=function (days){
 var convertlead=function (leadname){
 	return new Promise((resolve,reject)=>{
 		console.log('leadname -->',leadname);
-		conn.login(process.env.username, process.env.pass, function(err, res){
+		
+		var conn = new jsforce.Connection({
+  oauth2 : {
+    // you can change loginUrl to connect to sandbox or prerelease env.
+    // loginUrl : 'https://test.salesforce.com',
+    clientId : '3MVG9YDQS5WtC11qk.ArHtRRClgxBVv6.UbLdC7H6Upq8xs2G1EepruAJuuuogDIdevglKadHRNQDhITAnhif',
+    clientSecret : '4635706799290406853',
+    redirectUri : 'https://sagniklightning-dev-ed.my.salesforce.com/unused.apex'
+  }
+});
+conn.login(process.env.username, process.env.pass, function(err, res){
 			if(err){reject(err);}
 			else{
-		      var options = { Authorization: 'Bearer 00D6F000001NSYQ!AQQAQLlpjBIt0CseEeLpnMlTGJbXj4UVqanCV8G0BBFyE9ylCGuza0xPDZSRdJzlKeaELUUCuS0VxHyyhVooC5TdMxQRietb'};
-			var url=conn.instanceUrl+"/services/apexrest/Lead/00Q6F000012xmpK";
+				console.log('conn.accessToken:'+conn.accessToken);
+				var header='Bearer '+conn.accessToken;
+		      var options = { Authorization: header};
+			var url=conn.instanceUrl+"/services/apexrest/Lead/00Q6F000012xmpT";
 				console.log('conn.instanceUrl:'+conn.instanceUrl);
 				conn.apex.get(url,options,function(err, res) {
   if (err) {
