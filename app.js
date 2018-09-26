@@ -120,8 +120,8 @@ function leadid(leadname)
 	conn.login(process.env.username, process.env.pass, function(err, res){
 			if(err){reject(err);}
 			else{
-			
-		          conn.query('select Id,Name from Lead where Name ='+leadname, function(err, result){
+			  console.log('Query is:'+'select Id,Name from Lead where Name =\''+leadname+'\'');
+		          conn.query('select Id,Name from Lead where Name =\''+leadname+'\'', function(err, result){
                     if (err) {
                         console.log('err in fetching lead id:'+err);
                     }
