@@ -127,7 +127,7 @@ function leadid(leadname)
                     }
                     else{
 			    console.log("result:",result);
-			    console.log("result record:",result.records[0].attributes);
+			    console.log("result record:",result.Id);
 			  return result.records[0].Id;
                         
                     }
