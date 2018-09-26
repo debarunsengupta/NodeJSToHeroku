@@ -153,7 +153,7 @@ function leaddetails(leadname,callback)
 			    console.log("result:",result);
 			    //console.log("result record:",typeof(result.records[0]));
 			  //return result.records[0].Id;
-			    return callback(result.records[0]);
+			    return callback(result);
                         
                     }
                 });
@@ -252,19 +252,14 @@ app.intent('ConvertLead',(conv,params)=>{
 			 console.log('Inside called 2');
 			 console.log('response here:',response);
 			  console.log('response records here:',response.records);
-			  console.log('response records here length:',response.records.length);
-			 for (var i = 0; i < response.records.length; i++) {
-				  console.log('Inside called 6');
-            console.log("record name: : " + response.records[i].ConvertedAccount.Name);
-			str+=response.records[i].ConvertedAccount.Name;
-			str+='The Lead converted contact name is ' +response.records[i].ConvertedContact.Name;
-			str+='The Lead converted opportunity name is '+response.records[i].ConvertedOpportunity.Name;
-            //console.log("record id: : " + resp.records[i].Id);
-            //strName += resp.records[i].Name + ',';
-           
-                 }
-			 
-		 });
+			  //console.log('response records here length:',response.records.length);
+			
+			console.log('Inside called 6');
+				
+			str+=response.records[0].ConvertedAccount.Name;
+			str+='The Lead converted contact name is ' +response.records[0].ConvertedContact.Name;
+			str+='The Lead converted opportunity name is '+response.records[0].ConvertedOpportunity.Name;
+              });
 		 conv.ask(new SimpleResponse({speech:str,text:str}));
 	    }
 	 else if(reqleadid=='error')
