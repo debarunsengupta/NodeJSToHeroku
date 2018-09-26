@@ -277,7 +277,7 @@ app.intent('ConvertLead',(conv,params)=>{
 		});
 	 });
 	
-	conv.ask(new SimpleResponse({speech:str,text:str}));
+	conv.ask(new SimpleResponse({speech:str,text:str,textToSpeech: str}));
 });
 
 var port = process.env.PORT || 3000;
