@@ -197,7 +197,27 @@ app.intent('getAccInfo',(conv,params)=>{
 
 app.intent('ConvertLead',(conv,params)=>{
     console.log('lead name:'+params.leadname);
-	 var leadidfetched=leadid(params.leadname);
+	 //var leadidfetched=leadid(params.leadname);
+	
+	conn.login(process.env.username, process.env.pass, function(err, res){
+			if(err){reject(err);}
+			else{
+			  console.log('Query is:'+'select Id,Name from Lead where Name =\''+params.leadname+'\'');
+		          conn.query('select Id,Name from Lead where Name =\''+params.leadname+'\'', function(err, result){
+                    if (err) {
+                        console.log('err in fetching lead id:'+err);
+                    }
+                    else{
+			    console.log("result:",result);
+			    console.log("result record:",typeof(result.records[0].Id));
+			  leadidfetched=result.records[0].Id;
+                        
+                    }
+                });
+            }
+		});
+	
+	
 	console.log('lead id here:'+leadidfetched);
 	return convertlead(params.leadname,leadidfetched).then((resp)=>{
         console.log('response',resp);
