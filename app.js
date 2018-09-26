@@ -126,7 +126,7 @@ function leadid(leadname)
                         console.log('err in fetching lead id:'+err);
                     }
                     else{
-			    console.log("result:'+JSON.stringify(result.records));
+			    //console.log("result:'+JSON.stringify(result.records));
 			  return result.records[0].Id;
                         
                     }
