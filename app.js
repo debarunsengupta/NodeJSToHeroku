@@ -231,6 +231,9 @@ app.intent('ConvertLead',(conv,params)=>{
 	
 	return leadid(params.leadname).then((resp)=>{
         console.log('response',resp); //lead id
+		
+		if(resp!=null && resp!='' && resp!=undefined)
+		{
        return convertlead(params.leadname,resp).then((resp)=>{
         console.log('response fetched while calling apex service: ',resp);
 		 console.log('Inside called 3');
@@ -253,7 +256,11 @@ app.intent('ConvertLead',(conv,params)=>{
 		reqleadid='error';
 	    conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));
 		});
-		
+		}
+		else
+		{
+			conv.ask(new SimpleResponse({speech:"The lead name is not present in salesforce",text:"The lead name is not present in salesforce"}));
+		}
 	}).catch((err)=>{
         console.log('error',err);
 	    conv.ask(new SimpleResponse({speech:"Error while fetching lead id",text:"Error while fetching lead id"}));});	
