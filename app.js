@@ -246,7 +246,7 @@ app.intent('ConvertLead',(conv,params)=>{
 	return leadid(params.leadname).then((resp)=>{
         console.log('response',resp); //lead id
 		
-		if(resp.records.length >0)
+		if(resp.includes('00Q'))
 		{
        return convertlead(params.leadname,resp).then((resp)=>{
         console.log('response fetched while calling apex service: ',resp);
