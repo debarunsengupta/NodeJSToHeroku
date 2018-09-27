@@ -85,7 +85,7 @@ var accountRetrieval=function (days){
 
 var oppRetrieval=function(oppStage){
 	return new Promise((resolve,reject)=>{
-		console.log('days -->',days);
+		console.log('oppStage -->',oppStage);
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
 			if(err){reject(err);}
 			else{ 
