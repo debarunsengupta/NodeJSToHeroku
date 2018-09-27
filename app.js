@@ -122,17 +122,24 @@ var leadid=function (leadname){
 	return new Promise((resolve,reject)=>{
 		console.log('leadname -->',leadname);
 		conn.login(process.env.username, process.env.pass, function(err, res){
-			if(err){reject(err);}
+			if(err){
+				console.log('where2');
+				reject(err);}
 			else{
 				
-			
+			console.log('where3');
 			   
                 conn.query('select Id,Name from Lead where Name =\''+leadname+'\'', function(err, result){
                     if (err) {
+						console.log('where1');
                         reject(err);
                     }
                     else{
+						console.log('where');
+						if(result.records!=null)
+						{
                         resolve(result.records[0].Id);
+						}
                     }
                 });
 			
