@@ -136,7 +136,7 @@ var leadid=function (leadname){
                     }
                     else{
 						console.log('where');
-						console.log('result.records',result.records);
+						console.log('result.records',result.records.length);
 						if(result.records!=null && result.records!='')
 						{
 							console.log('inside records');
@@ -246,7 +246,7 @@ app.intent('ConvertLead',(conv,params)=>{
 	return leadid(params.leadname).then((resp)=>{
         console.log('response',resp); //lead id
 		
-		if(resp!=null && resp!='' && resp!=undefined)
+		if(resp.records.length >0)
 		{
        return convertlead(params.leadname,resp).then((resp)=>{
         console.log('response fetched while calling apex service: ',resp);
