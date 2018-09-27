@@ -83,6 +83,26 @@ var accountRetrieval=function (days){
 });
 }
 
+var oppRetrieval=function(oppStage){
+	return new Promise((resolve,reject)=>{
+		console.log('days -->',days);
+		conn.login(process.env.username, process.env.pass, (err, res)=>{
+			if(err){reject(err);}
+			else{ 
+                conn.query('select Id,Name from Opportunity where StageName = \''+oppStage+'\'', function(err, result){
+                    if (err) {
+                        reject(err);
+                    }
+                    else{
+                        resolve(result);
+                    }
+                });
+			
+            }
+		});
+});
+}
+
 
 
 var convertlead=function (leadname,leadidfetched){
@@ -238,6 +258,24 @@ app.intent('getAccInfo',(conv,params)=>{
 	}).catch((err)=>{
         console.log('error',err);
 	    conv.ask(new SimpleResponse({speech:"Error while fetching info",text:"Error while fetching info"}));});	
+});
+
+app.intent('getOppprty',(conv,{oppStage})=>{
+    console.log('stage passed from google'+oppStage);
+	return oppRetrieval(oppStage).then((resp)=>{
+        console.log('response',resp);
+        for (let i = 0; i < resp.records.length; i++) {
+            console.log("record name: : " + resp.records[i].Name);
+            console.log("record id: : " + resp.records[i].Id);
+            strName += resp.records[i].Name + ',';
+           
+       }
+		strName=strName.slice(0,-1);
+		conv.ask(new SimpleResponse({speech:"We are able to get the Opportunity information: "+strName,text:"We are able to get the Opportunity information: "+strName}));
+		
+	}).catch((err)=>{
+        console.log('error',err);
+	    conv.ask(new SimpleResponse({speech:"Error while fetching Opportunity info",text:"Error while fetching Opportunity info"}));});	
 });
 
 
