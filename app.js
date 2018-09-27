@@ -138,7 +138,13 @@ var leadid=function (leadname){
 						console.log('where');
 						if(result.records!=null)
 						{
+							console.log('inside records');
                         resolve(result.records[0].Id);
+						}
+						else
+						{
+							console.log('inside records 1');
+							resolve(result);
 						}
                     }
                 });
