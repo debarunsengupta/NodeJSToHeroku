@@ -265,6 +265,11 @@ app.intent('ConvertLead',(conv,params)=>{
 			console.log('str:'+str);
               });
 		     console.log('str here:'+str);
+			 
+	if(finalresult=='success')
+	 {
+	conv.ask(new SimpleResponse({speech:str,text:str}));
+	 }
 		 
 	    }
 	 else if(reqleadid=='error')
@@ -279,10 +284,7 @@ app.intent('ConvertLead',(conv,params)=>{
 		});
 	 });
 	console.log('str new :'+str);
-	 if(finalresult=='success')
-	 {
-	conv.ask(new SimpleResponse({speech:str,text:str}));
-	 }
+	
 });
 
 var port = process.env.PORT || 3000;
