@@ -140,7 +140,8 @@ var leadid=function (leadname){
 						if(result.records!=null && result.records!='')
 						{
 							console.log('inside records');
-                        resolve(result.records[0].Id);
+                        //resolve(result.records[0].Id);
+						resolve(result);
 						}
 						else
 						{
@@ -246,9 +247,9 @@ app.intent('ConvertLead',(conv,params)=>{
 	return leadid(params.leadname).then((resp)=>{
         console.log('response',resp); //lead id
 		
-		if(resp.includes('00Q'))
+		if(resp.records.length >0)
 		{
-       return convertlead(params.leadname,resp).then((resp)=>{
+       return convertlead(params.leadname,resp.records[0].Id).then((resp)=>{
         console.log('response fetched while calling apex service: ',resp);
 		 console.log('Inside called 3');
       
