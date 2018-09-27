@@ -116,30 +116,7 @@ conn.login(process.env.username, process.env.pass, function(err, res){
 		});
 });
 }
-/*
-function leadid(leadname,callback)
-{
-	conn.login(process.env.username, process.env.pass, function(err, res){
-			if(err){reject(err);}
-			else{
-			  console.log('Query is:'+'select Id,Name from Lead where Name =\''+leadname+'\'');
-		          conn.query('select Id,Name from Lead where Name =\''+leadname+'\'', function(err, result){
-                    if (err) {
-                        console.log('err in fetching lead id:'+err);
-                    }
-                    else{
-			    console.log("result:",result);
-			    console.log("result record:",typeof(result.records[0].Id));
-			  //return result.records[0].Id;
-			    return callback(result.records[0].Id);
-                        
-                    }
-                });
-            }
-		});
-	
-	
-}*/
+
 
 var leadid=function (leadname){
 	return new Promise((resolve,reject)=>{
@@ -190,30 +167,7 @@ var leaddetails=function (leadname){
   
 });
 }
-/*
-function leaddetails(leadname,callback)
-{
-	conn.login(process.env.username, process.env.pass, function(err, res){
-			if(err){reject(err);}
-			else{
-			  console.log('Query is:'+'select Id,ConvertedAccount.Name, ConvertedContact.Name, ConvertedOpportunity.Name from Lead where Name =\''+leadname+'\'');
-		          conn.query('select Id,ConvertedAccount.Name, ConvertedContact.Name, ConvertedOpportunity.Name from Lead where Name =\''+leadname+'\'', function(err, result){
-                    if (err) {
-                        console.log('err in fetching lead id:'+err);
-                    }
-                    else{
-			    console.log("result:",result);
-			    //console.log("result record:",typeof(result.records[0]));
-			  //return result.records[0].Id;
-			    return callback(result);
-                        
-                    }
-                });
-            }
-		});
-	
-	
-}*/
+
 
 app.intent('connect_salesforce',(conv,params)=>{
     
@@ -287,7 +241,7 @@ app.intent('ConvertLead',(conv,params)=>{
 		 console.log('response.records[0].ConvertedAccount.Name',resp.records[0].ConvertedAccount["Name"]);
 			str+=resp.records[0].ConvertedAccount["Name"]+',';
 			str+='The Lead converted contact name is ' +resp.records[0].ConvertedContact["Name"]+',';
-			str+='The Lead converted opportunity name is '+resp.records[0].ConvertedOpportunity["Name"];
+			str+='The Lead converted opportunity name is '+resp.records[0].ConvertedOpportunity["Name"]+'.';
 		conv.ask(new SimpleResponse({speech:str,text:str}));
 	}).catch((err)=>{
         console.log('error',err);
