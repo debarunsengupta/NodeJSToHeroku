@@ -89,7 +89,7 @@ var oppRetrieval=function(oppStage){
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
 			if(err){reject(err);}
 			else{ 
-                conn.query('select Id,Name from Opportunity where StageName = \''+oppStage+'\'', function(err, result){
+                conn.query('select Id,Name from Opportunity where StageName = \''+oppStage+'\' LIMIT 2', function(err, result){
                     if (err) {
                         reject(err);
                     }
@@ -261,17 +261,18 @@ app.intent('getAccInfo',(conv,params)=>{
 });
 
 app.intent('getOppprty',(conv,{oppStage})=>{
+    var strnm = '';
     console.log('stage passed from google'+oppStage);
 	return oppRetrieval(oppStage).then((resp)=>{
         console.log('response',resp);
         for (let i = 0; i < resp.records.length; i++) {
             console.log("record name: : " + resp.records[i].Name);
             console.log("record id: : " + resp.records[i].Id);
-            strName += resp.records[i].Name + ',';
+            strnm += resp.records[i].Name + ',';
            
        }
-		strName=strName.slice(0,-1);
-		conv.ask(new SimpleResponse({speech:"We are able to get the Opportunity information: "+strName,text:"We are able to get the Opportunity information: "+strName}));
+		strnm=strnm.slice(0,-1);
+		conv.ask(new SimpleResponse({speech:"We are able to get the Opportunity information: "+strnm,text:"We are able to get the Opportunity information: "+strnm}));
 		
 	}).catch((err)=>{
         console.log('error',err);
