@@ -137,6 +137,37 @@ conn.login(process.env.username, process.env.pass, function(err, res){
 });
 }
 
+var approvalprocesssubmit=function (actname,actid){
+	return new Promise((resolve,reject)=>{
+		console.log('actname -->',actname);
+		console.log('actid -->',actid);
+
+   conn.login(process.env.username, process.env.pass, function(err, res){
+			if(err){reject(err);}
+			else{
+				console.log('conn.accessToken:'+conn.accessToken);
+				var header='Bearer '+conn.accessToken;
+		      var options = { Authorization: header};
+			//var url=conn.instanceUrl+"/services/apexrest/Lead/00Q6F000012xmpT";
+				console.log('conn.instanceUrl:'+conn.instanceUrl);
+				//console.log('url:'+url);
+				conn.apex.get("/SubmitForApproval/"+actid,options,function(err, res) {
+  if (err) {
+	  reject(err);
+	  //return console.error(err); 
+	  }
+	  else
+	  {
+  console.log("response: ", res);
+  resolve(res);
+	  }
+  // the response object structure depends on the definition of apex class
+});
+		
+            }
+		});
+});
+}
 
 var leadid=function (leadname){
 	return new Promise((resolve,reject)=>{
@@ -150,6 +181,45 @@ var leadid=function (leadname){
 			console.log('where3');
 			   
                 conn.query('select Id,Name from Lead where Name =\''+leadname+'\'', function(err, result){
+                    if (err) {
+						console.log('where1');
+                        reject(err);
+                    }
+                    else{
+						console.log('where');
+						console.log('result.records',result.records.length);
+						if(result.records!=null && result.records!='')
+						{
+							console.log('inside records');
+                        //resolve(result.records[0].Id);
+						resolve(result);
+						}
+						else
+						{
+							console.log('inside records 1');
+							resolve(result);
+						}
+                    }
+                });
+			
+            }
+		});
+});
+}
+
+
+var actid=function (actname){
+	return new Promise((resolve,reject)=>{
+		console.log('actname -->',actname);
+		conn.login(process.env.username, process.env.pass, function(err, res){
+			if(err){
+				console.log('where2');
+				reject(err);}
+			else{
+				
+			console.log('where3');
+			   
+                conn.query('select Id,Name from account where Name =\''+actname+'\'', function(err, result){
                     if (err) {
 						console.log('where1');
                         reject(err);
@@ -279,7 +349,31 @@ app.intent('getOppprty',(conv,{oppStage})=>{
 	    conv.ask(new SimpleResponse({speech:"Error while fetching Opportunity info",text:"Error while fetching Opportunity info"}));});	
 });
 
-
+app.intent('SubmitForApproval',(conv,params)=>{
+   
+   	return actid(params.actname).then((resp)=>{
+        console.log('response',resp); //lead id
+		
+		if(resp.records.length >0)
+		{
+       return approvalprocesssubmit(params.actname,resp.records[0].Id).then((resp)=>{
+        console.log('response fetched while calling apex service: ',resp);
+		 console.log('Inside called 3');
+		 conv.ask(new SimpleResponse({speech:"Approval Process Submitted Successfully",text:"Approval Process Submitted Successfully"}));
+        }).catch((err)=>{
+        console.log('error msg:',err);
+		reqleadid='error';
+	    conv.ask(new SimpleResponse({speech:"Error while Submitting for Approval",text:"Error while Submitting for Approval"}));
+		});
+		}
+		else
+		{
+			conv.ask(new SimpleResponse({speech:"The Account name is not present in salesforce",text:"The Account name is not present in salesforce"}));
+		}
+	}).catch((err)=>{
+        console.log('error',err);
+	    conv.ask(new SimpleResponse({speech:"Error while fetching account id",text:"Error while fetching account id"}));});
+});
 app.intent('ConvertLead',(conv,params)=>{
     console.log('lead name:'+params.leadname);
 	
