@@ -302,10 +302,6 @@ app.intent('connect_salesforce',(conv,params)=>{
 });
 });
 
-app.intent('Default Welcome Intent',(conv,params)=>{
-conv.ask(new Suggestions('a'));
-conv.ask(new Suggestions('b'));
-});
 
 
 
