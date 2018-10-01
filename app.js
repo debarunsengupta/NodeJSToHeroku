@@ -334,7 +334,7 @@ app.intent('getAccInfo',(conv,params)=>{
 	    conv.ask(new SimpleResponse({speech:"Error while fetching info",text:"Error while fetching info"}));});	
 });
 
-app.intent('actions.intent.CANCEL', (conv) => {
+app.intent('exitintent', (conv) => {
   conv.close('Okay, lets try this again later.');
 });
 app.intent('getOppprty',(conv,{oppStage})=>{
