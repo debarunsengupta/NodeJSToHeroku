@@ -302,6 +302,13 @@ app.intent('connect_salesforce',(conv,params)=>{
 });
 });
 
+app.intent('Default Welcome Intent',(conv,params)=>{
+conv.ask(new Suggestions('a'));
+conv.ask(new Suggestions('b'));
+});
+
+
+
 app.intent('AccountName',(conv,params)=>{
 	return accountCreation(params.AccountName).then((resp)=>{
 		conv.ask(new SimpleResponse({speech:"We are able to create your account named:"+params.AccountName,text:"We are able to create your account named:"+params.AccountName}));
