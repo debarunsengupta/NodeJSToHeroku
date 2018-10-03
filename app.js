@@ -103,6 +103,26 @@ var oppRetrieval=function(oppStage){
 });
 }
 
+var specificOppRetrieval=function(oppName){
+	return new Promise((resolve,reject)=>{
+		console.log('oppName -->',oppName);
+		conn.login(process.env.username, process.env.pass, (err, res)=>{
+			if(err){reject(err);}
+			else{ 
+                conn.query('select Id,Name,Amount,StageName from Opportunity where Name = \''+oppName+'\'', function(err, result){
+                    if (err) {
+                        reject(err);
+                    }
+                    else{
+                        resolve(result);
+                    }
+                });
+			
+            }
+		});
+});
+}
+
 
 
 var convertlead=function (leadname,leadidfetched){
@@ -350,6 +370,31 @@ app.intent('getOppprty',(conv,{oppStage})=>{
        }
 		strnm=strnm.slice(0,-1);
 		conv.ask(new SimpleResponse({speech:"We are able to get the Opportunity information: "+strnm,text:"We are able to get the Opportunity information: "+strnm}));
+		
+	}).catch((err)=>{
+        console.log('error',err);
+	    conv.ask(new SimpleResponse({speech:"Error while fetching Opportunity info",text:"Error while fetching Opportunity info"}));});	
+});
+
+app.intent('getSpecificOpp',(conv,{oppName})=>{
+    
+	var rsltStageStr = '';
+	var rsltAmtStr = '';
+	
+    console.log('opp name passed from google'+oppName);
+	
+	return specificOppRetrieval(oppName).then((resp)=>{
+        
+		console.log('response',resp);
+        
+		//var rsltStageStr='';
+		//var rsltAmtStr='';
+       		
+		var rsltStageStr = resp.records[0].StageName;
+		var rsltAmtStr = resp.records[0].Amount;
+		
+		
+		conv.ask(new SimpleResponse({speech:"Opportunity" + oppName + "Stage and Amount is:" + rsltStageStr + "," + rsltAmtStr + " respectively",text:"Opportunity" + oppName + "Stage and Amount is:" + rsltStageStr + "," + rsltAmtStr + " respectively"}));
 		
 	}).catch((err)=>{
         console.log('error',err);
