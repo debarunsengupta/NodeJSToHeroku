@@ -394,7 +394,7 @@ app.intent('getSpecificOpp',(conv,{OppName})=>{
 		var rsltAmtStr = resp.records[0].Amount;
 		
 		
-		conv.ask(new SimpleResponse({speech:"Opportunity named " + OppName + " Stage and Amount is: " + rsltStageStr + "," + rsltAmtStr + " respectively",text:"Opportunity" + OppName + " Stage and Amount is: " + rsltStageStr + "," + rsltAmtStr + " respectively"}));
+		conv.ask(new SimpleResponse({speech:"Opportunity named " + OppName + " Stage and Amount is " + rsltStageStr + "and" + rsltAmtStr + " respectively",text:"Opportunity" + OppName + " Stage and Amount is " + rsltStageStr + "and" + rsltAmtStr + " respectively"}));
 		
 	}).catch((err)=>{
         console.log('error',err);
