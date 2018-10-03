@@ -383,7 +383,7 @@ app.intent('getSpecificOpp',(conv,{OppName})=>{
 	
     console.log('opp name passed from google'+OppName);
 	
-	return specificOppRetrieval(oppName).then((resp)=>{
+	return specificOppRetrieval(OppName).then((resp)=>{
         
 		console.log('response',resp);
         
