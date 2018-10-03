@@ -419,7 +419,7 @@ app.intent('getSpecificOpp',(conv,{OppName})=>{
 		
 		
 		conv.ask(new SimpleResponse({speech:"Opportunity named " + OppName + " Stage and Amount is " + rsltStageStr + " and " + rsltAmtStr + " respectively",text:"Opportunity named " + OppName + " Stage and Amount is " + rsltStageStr + " and " + rsltAmtStr + " respectively"}));
-		conv.ask(new Suggestions('Update Opportunity Stage'));
+		conv.ask(new Suggestions('Update Opportunity Amount'));
 		
 	}).catch((err)=>{
         console.log('error',err);
@@ -427,7 +427,7 @@ app.intent('getSpecificOpp',(conv,{OppName})=>{
 	
 });
 
-app.intent('getSpecificOpp',(conv,{OppAmt})=>{
+app.intent('updateOppAmt',(conv,{OppAmt})=>{
     
 	var rsltStageStr = '';
 	var rsltAmtStr = '';
