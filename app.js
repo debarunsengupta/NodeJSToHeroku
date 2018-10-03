@@ -6,6 +6,7 @@ const bodyParser=require('body-parser');
 const jsforce = require('jsforce'); 
 const server = express();
 var strName='';
+var opptName = '';
 var conn = new jsforce.Connection({ 
     loginUrl: 'https://login.salesforce.com', //'https://login.salesforce.com', 
     version: '43.0' 
@@ -106,10 +107,33 @@ var oppRetrieval=function(oppStage){
 var specificOppRetrieval=function(OppName){
 	return new Promise((resolve,reject)=>{
 		console.log('oppName -->',OppName);
+		opptName  = OppName;
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
 			if(err){reject(err);}
 			else{ 
                 conn.query('select Id,Name,Amount,StageName from Opportunity where Name = \''+OppName+'\'', function(err, result){
+                    if (err) {
+                        reject(err);
+                    }
+                    else{
+                        resolve(result);
+                    }
+                });
+			
+            }
+		});
+});
+}
+
+var specificOppUpdate = function(OppAmt){
+	return new Promise((resolve,reject)=>{
+		console.log('OppAmt -->',OppAmt);
+		
+		
+		conn.login(process.env.username, process.env.pass, (err, res)=>{
+			if(err){reject(err);}
+			else{ 
+                conn.sobject('Opportunity').find({ 'Name' : opptName }).update({ Amount: OppAmt }, function(err, result) {
                     if (err) {
                         reject(err);
                     }
@@ -400,6 +424,27 @@ app.intent('getSpecificOpp',(conv,{OppName})=>{
 	}).catch((err)=>{
         console.log('error',err);
 	conv.ask(new SimpleResponse({speech:"Error while fetching Opportunity info",text:"Error while fetching Opportunity info"}));});	
+	
+});
+
+app.intent('getSpecificOpp',(conv,{OppAmt})=>{
+    
+	var rsltStageStr = '';
+	var rsltAmtStr = '';
+	
+    console.log('opp amt passed from google'+OppAmt);
+	
+	return specificOppUpdate(OppAmt).then((resp)=>{
+        
+		console.log('response',resp);
+		
+		
+		conv.ask(new SimpleResponse({speech:"Opportunity amount updated",text:"Opportunity amount updated"}));
+		
+		
+	}).catch((err)=>{
+        console.log('error',err);
+	conv.ask(new SimpleResponse({speech:"Error while updating Opportunity amount",text:"Error while updating Opportunity amount"}));});	
 	
 });
 
