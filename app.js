@@ -398,7 +398,8 @@ app.intent('getSpecificOpp',(conv,{OppName})=>{
 		
 	}).catch((err)=>{
         console.log('error',err);
-	    conv.ask(new SimpleResponse({speech:"Error while fetching Opportunity info",text:"Error while fetching Opportunity info"}));});	
+	conv.ask(new SimpleResponse({speech:"Error while fetching Opportunity info",text:"Error while fetching Opportunity info"}));});	
+	conv.ask(new Suggestions('Update Opportunity Stage'));
 });
 
 app.intent('SubmitForApproval',(conv,params)=>{
