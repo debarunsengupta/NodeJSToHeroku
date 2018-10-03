@@ -103,13 +103,13 @@ var oppRetrieval=function(oppStage){
 });
 }
 
-var specificOppRetrieval=function(oppName){
+var specificOppRetrieval=function(OppName){
 	return new Promise((resolve,reject)=>{
-		console.log('oppName -->',oppName);
+		console.log('oppName -->',OppName);
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
 			if(err){reject(err);}
 			else{ 
-                conn.query('select Id,Name,Amount,StageName from Opportunity where Name = \''+oppName+'\'', function(err, result){
+                conn.query('select Id,Name,Amount,StageName from Opportunity where Name = \''+OppName+'\'', function(err, result){
                     if (err) {
                         reject(err);
                     }
@@ -376,12 +376,12 @@ app.intent('getOppprty',(conv,{oppStage})=>{
 	    conv.ask(new SimpleResponse({speech:"Error while fetching Opportunity info",text:"Error while fetching Opportunity info"}));});	
 });
 
-app.intent('getSpecificOpp',(conv,{oppName})=>{
+app.intent('getSpecificOpp',(conv,{OppName})=>{
     
 	var rsltStageStr = '';
 	var rsltAmtStr = '';
 	
-    console.log('opp name passed from google'+oppName);
+    console.log('opp name passed from google'+OppName);
 	
 	return specificOppRetrieval(oppName).then((resp)=>{
         
@@ -394,7 +394,7 @@ app.intent('getSpecificOpp',(conv,{oppName})=>{
 		var rsltAmtStr = resp.records[0].Amount;
 		
 		
-		conv.ask(new SimpleResponse({speech:"Opportunity" + oppName + "Stage and Amount is:" + rsltStageStr + "," + rsltAmtStr + " respectively",text:"Opportunity" + oppName + "Stage and Amount is:" + rsltStageStr + "," + rsltAmtStr + " respectively"}));
+		conv.ask(new SimpleResponse({speech:"Opportunity" + OppName + "Stage and Amount is:" + rsltStageStr + "," + rsltAmtStr + " respectively",text:"Opportunity" + OppName + "Stage and Amount is:" + rsltStageStr + "," + rsltAmtStr + " respectively"}));
 		
 	}).catch((err)=>{
         console.log('error',err);
