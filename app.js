@@ -395,11 +395,12 @@ app.intent('getSpecificOpp',(conv,{OppName})=>{
 		
 		
 		conv.ask(new SimpleResponse({speech:"Opportunity named " + OppName + " Stage and Amount is " + rsltStageStr + " and " + rsltAmtStr + " respectively",text:"Opportunity named " + OppName + " Stage and Amount is " + rsltStageStr + " and " + rsltAmtStr + " respectively"}));
+		conv.ask(new Suggestions('Update Opportunity Stage'));
 		
 	}).catch((err)=>{
         console.log('error',err);
 	conv.ask(new SimpleResponse({speech:"Error while fetching Opportunity info",text:"Error while fetching Opportunity info"}));});	
-	conv.ask(new Suggestions('Update Opportunity Stage'));
+	
 });
 
 app.intent('SubmitForApproval',(conv,params)=>{
