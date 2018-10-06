@@ -372,9 +372,9 @@ app.intent('connect_salesforce',(conv,params)=>{
 app.intent('Default Welcome Intent', (conv) => {
 	conv.ask(new SimpleResponse({speech:"Hello, this is your friendly salesforce connector.I would like to help you with some basic salesforce functionalities.Here are some suggestions",text:"Hello, this is your friendly salesforce connector.I would like to help you with some basic salesforce functionalities.Here are some suggestions"}));
         conv.ask(new Suggestions('Create new Lead'));
-	conv.ask(new Suggestions('Convert Lead'));
+	//conv.ask(new Suggestions('Convert Lead'));
 	conv.ask(new Suggestions('Create a new Account'));
-	conv.ask(new Suggestions('Submit for Approval'));
+	//conv.ask(new Suggestions('Submit for Approval'));
 	//conv.ask(new Suggestions('Submit Account for Approval'));
 });
 
@@ -382,6 +382,7 @@ app.intent('Default Welcome Intent', (conv) => {
 app.intent('AccountName',(conv,params)=>{
 	return accountCreation(params.AccountName).then((resp)=>{
 		conv.ask(new SimpleResponse({speech:"We are able to create your account named "+params.AccountName,text:"We are able to create your account named "+params.AccountName}));
+		conv.ask(new Suggestions('Update Rating,Type and Industry on the account named ' +params.AccountName+' as Hot,Customer - Direct and Consulting respectively.'));
 		//conv.ask(new Suggestions('Fetch Recent Accounts'));
 		//conv.ask(new Suggestions('Submit for Approval'));
 	}).catch((err)=>{
