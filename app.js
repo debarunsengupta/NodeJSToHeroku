@@ -7,6 +7,7 @@ const jsforce = require('jsforce');
 const server = express();
 var strName='';
 var opptName = '';
+var acctName = '';
 var conn = new jsforce.Connection({ 
     loginUrl: 'https://login.salesforce.com', //'https://login.salesforce.com', 
     version: '43.0' 
@@ -149,7 +150,7 @@ var specificOppUpdate = function(OppAmt){
 
 var accUpdate = function(accName,accRating,accType,accIndustry){
 	return new Promise((resolve,reject)=>{
-		
+		acctName = accName;
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
 			if(err){reject(err);}
 			else{ 
@@ -490,14 +491,14 @@ app.intent('updateOppAmt',(conv,{OppAmt})=>{
 	
 });
 
-app.intent('SubmitForApproval',(conv,params)=>{
+app.intent('SubmitForApproval',(conv)=>{
    
-   	return actid(params.actname).then((resp)=>{
+   	return actid(acctName).then((resp)=>{
         console.log('response',resp); //lead id
 		
 		if(resp.records.length >0)
 		{
-       return approvalprocesssubmit(params.actname,resp.records[0].Id).then((resp)=>{
+       return approvalprocesssubmit(acctName,resp.records[0].Id).then((resp)=>{
         console.log('response fetched while calling apex service: ',resp);
 		 console.log('Inside called 3');
 		 conv.ask(new SimpleResponse({speech:"Approval Process Submitted Successfully",text:"Approval Process Submitted Successfully"}));
