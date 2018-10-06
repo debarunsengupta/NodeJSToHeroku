@@ -351,7 +351,7 @@ app.intent('Default Welcome Intent', (conv) => {
         conv.ask(new Suggestions('Create new Lead'));
 	conv.ask(new Suggestions('Convert Lead'));
 	conv.ask(new Suggestions('Create a new Account'));
-	conv.ask(new Suggestions('Submit Account for Approval'));
+	//conv.ask(new Suggestions('Submit Account for Approval'));
 	//conv.ask(new Suggestions('Submit Account for Approval'));
 });
 
