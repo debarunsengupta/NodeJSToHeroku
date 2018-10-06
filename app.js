@@ -456,12 +456,12 @@ app.intent('getSpecificOpp',(conv,{OppName})=>{
 	
 });
 
-app.intent('updateAcc',(conv,{params})=>
+app.intent('updateAcc',(conv,{accName,accRating,accType,accIndustry})=>
 	{
-	console.log('Param:',params);
-	console.log('Param accName:',params.accName);
-	console.log('Param accType:',params.accType);
-	   return accUpdate(params.accName,params.accRating,params.accType,params.accIndustry).then((resp)=>{
+	//console.log('Param:',params);
+	console.log('Param accName:',accName);
+	console.log('Param accType:',accType);
+	   return accUpdate(accName,accRating,accType,accIndustry).then((resp)=>{
 		conv.ask(new SimpleResponse({speech:"Account information updated",text:"Account information updated"}));
 		conv.ask(new Suggestions('Submit for Approval'));
 		
