@@ -347,6 +347,7 @@ app.intent('connect_salesforce',(conv,params)=>{
 });
 
 app.intent('Default Welcome Intent', (conv) => {
+	conv.ask(new SimpleResponse({speech:"abc",text:"abc"}));
   conv.ask(new Suggestions('Create a new account'));
 });
 
