@@ -147,6 +147,28 @@ var specificOppUpdate = function(OppAmt){
 });
 }
 
+var accUpdate = function(accName,accRating,accType,accIndustry){
+	return new Promise((resolve,reject)=>{
+		
+		conn.login(process.env.username, process.env.pass, (err, res)=>{
+			if(err){reject(err);}
+			else{ 
+                conn.sobject('Account').find({ 'Name' : accName }).update({ Rating: accRating,Type: accType,Industry: accIndustry }, function(err, result) {
+                    if (err) {
+                        reject(err);
+                    }
+                    else{
+                        resolve(result);
+                    }
+                });
+			
+            }
+		});
+});
+}
+
+
+
 
 
 var convertlead=function (leadname,leadidfetched){
@@ -431,6 +453,23 @@ app.intent('getSpecificOpp',(conv,{OppName})=>{
 	}).catch((err)=>{
         console.log('error',err);
 	conv.ask(new SimpleResponse({speech:"Error while fetching Opportunity info",text:"Error while fetching Opportunity info"}));});	
+	
+});
+
+app.intent('updateAcc',(conv,{accName,accRating,accType,accIndustry})=>
+	
+	
+	return accUpdate(accName,accRating,accType,accIndustry).then((resp)=>{
+        
+		console.log('response',resp);
+        
+		
+		conv.ask(new SimpleResponse({speech:"Account information updated",text:"Account information updated"}));
+		conv.ask(new Suggestions('Submit for Approval'));
+		
+	}).catch((err)=>{
+        console.log('error',err);
+		conv.ask(new SimpleResponse({speech:"Error while updating Account info",text:"Error while updating Account info"}));});	
 	
 });
 
