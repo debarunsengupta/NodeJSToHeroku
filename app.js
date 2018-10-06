@@ -147,7 +147,6 @@ var specificOppUpdate = function(OppAmt){
 });
 }
 
-/*
 var accUpdate = function(accName,accRating,accType,accIndustry){
 	return new Promise((resolve,reject)=>{
 		
@@ -166,7 +165,7 @@ var accUpdate = function(accName,accRating,accType,accIndustry){
             }
 		});
 });
-}*/
+}
 
 
 
