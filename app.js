@@ -347,7 +347,7 @@ app.intent('connect_salesforce',(conv,params)=>{
 });
 
 app.intent('Default Welcome Intent', (conv) => {
-	conv.ask(new SimpleResponse({speech:"Hello, this is your friendly salesforce connector and I would like to help you with some basics salesforce functionalities.Here are some suggestions",text:"Hello, this is your friendly salesforce connector and I would like to help you with some basics salesforce functionalities.Here are some suggestions"}));
+	conv.ask(new SimpleResponse({speech:"Hello, this is your friendly salesforce connector.I would like to help you with some basic salesforce functionalities.Here are some suggestions",text:"Hello, this is your friendly salesforce connector.I would like to help you with some basic salesforce functionalities.Here are some suggestions"}));
         conv.ask(new Suggestions('Create new Lead'));
 	conv.ask(new Suggestions('Convert Lead'));
 	conv.ask(new Suggestions('Create a new Account'));
