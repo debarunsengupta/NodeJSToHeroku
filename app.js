@@ -455,8 +455,9 @@ app.intent('getSpecificOpp',(conv,{OppName})=>{
 	conv.ask(new SimpleResponse({speech:"Error while fetching Opportunity info",text:"Error while fetching Opportunity info"}));});	
 	
 });
-/*
+
 app.intent('updateAcc',(conv,{params})=>
+	{
 	
 	   return accUpdate(params.accName,params.accRating,params.accType,params.accIndustry).then((resp)=>{
 		conv.ask(new SimpleResponse({speech:"Account information updated",text:"Account information updated"}));
@@ -464,7 +465,7 @@ app.intent('updateAcc',(conv,{params})=>
 		
 	}).catch((err)=>{
 	conv.ask(new SimpleResponse({speech:"Error while updating Account info",text:"Error while updating Account info"}));});	
-	});*/
+	});
 
 app.intent('updateOppAmt',(conv,{OppAmt})=>{
     
