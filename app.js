@@ -458,7 +458,9 @@ app.intent('getSpecificOpp',(conv,{OppName})=>{
 
 app.intent('updateAcc',(conv,{params})=>
 	{
-	
+	console.log('Param:',params);
+	console.log('Param accName:',params.accName);
+	console.log('Param accType:',params.accType);
 	   return accUpdate(params.accName,params.accRating,params.accType,params.accIndustry).then((resp)=>{
 		conv.ask(new SimpleResponse({speech:"Account information updated",text:"Account information updated"}));
 		conv.ask(new Suggestions('Submit for Approval'));
