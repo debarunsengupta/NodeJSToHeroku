@@ -456,22 +456,15 @@ app.intent('getSpecificOpp',(conv,{OppName})=>{
 	
 });
 
-app.intent('updateAcc',(conv,{accName,accRating,accType,accIndustry})=>
+app.intent('updateAcc',(conv,{params})=>
 	
-	
-	return accUpdate(accName,accRating,accType,accIndustry).then((resp)=>{
-        
-		console.log('response',resp);
-        
-		
+	   return accUpdate(params.accName,params.accRating,params.accType,params.accIndustry).then((resp)=>{
 		conv.ask(new SimpleResponse({speech:"Account information updated",text:"Account information updated"}));
 		conv.ask(new Suggestions('Submit for Approval'));
 		
 	}).catch((err)=>{
-        console.log('error',err);
-		conv.ask(new SimpleResponse({speech:"Error while updating Account info",text:"Error while updating Account info"}));});	
-	
-});
+	conv.ask(new SimpleResponse({speech:"Error while updating Account info",text:"Error while updating Account info"}));});	
+	});
 
 app.intent('updateOppAmt',(conv,{OppAmt})=>{
     
