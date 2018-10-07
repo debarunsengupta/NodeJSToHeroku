@@ -8,6 +8,7 @@ const server = express();
 var strName='';
 var opptName = '';
 var acctName = '';
+var leadName = '';
 var conn = new jsforce.Connection({ 
     loginUrl: 'https://login.salesforce.com', //'https://login.salesforce.com', 
     version: '43.0' 
@@ -198,6 +199,7 @@ var accUpdate = function(accName,accRating,accType,accIndustry){
 
 var leadUpdate = function(leadFirstName,leadLastName,leadComp,leadTitle,leadSource){
 	console.log('value feteched here',leadFirstName+' '+leadLastName);
+	leadName=leadFirstName+' '+leadLastName;
 	return new Promise((resolve,reject)=>{
 		
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
@@ -541,7 +543,8 @@ app.intent('updateAcc',(conv,{accName,accRating,accType,accIndustry})=>
 	console.log('Param leadSource:',leadSource);
 	   return leadUpdate(leadFirstName,leadLastName,leadComp,leadTitle,leadSource).then((resp)=>{
 		conv.ask(new SimpleResponse({speech:"Lead information updated",text:"Lead information updated"}));
-		//conv.ask(new Suggestions('Submit for Approval'));
+		conv.ask(new Suggestions('Convert Lead'));
+		conv.ask(new Suggestions('Can you please convert the lead for me?'));
 		
 	}).catch((err)=>{
 		   console.log('the err lead is',err);
@@ -594,19 +597,19 @@ app.intent('SubmitForApproval',(conv)=>{
         console.log('error',err);
 	    conv.ask(new SimpleResponse({speech:"Error while fetching account id",text:"Error while fetching account id"}));});
 });
-app.intent('ConvertLead',(conv,params)=>{
-    console.log('lead name:'+params.leadname);
+app.intent('ConvertLead',(conv)=>{
+    //console.log('lead name:'+params.leadname);
 	
-	return leadid(params.leadname).then((resp)=>{
+	return leadid(leadName).then((resp)=>{
         console.log('response',resp); //lead id
 		
 		if(resp.records.length >0)
 		{
-       return convertlead(params.leadname,resp.records[0].Id).then((resp)=>{
+       return convertlead(leadName,resp.records[0].Id).then((resp)=>{
         console.log('response fetched while calling apex service: ',resp);
 		 console.log('Inside called 3');
       
-		  return leaddetails(params.leadname).then((resp)=>{
+		  return leaddetails(leadName).then((resp)=>{
 			  var str='The Lead converted account name is ';
           console.log('Inside called 6');
 		 console.log('response.records[0].ConvertedAccount.Name',resp.records[0].ConvertedAccount["Name"]);
