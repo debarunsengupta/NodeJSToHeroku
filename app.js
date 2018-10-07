@@ -203,7 +203,7 @@ var leadUpdate = function(leadFirstName,leadLastName,leadComp,leadTitle,leadSour
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
 			if(err){reject(err);}
 			else{ 
-                conn.sobject('Lead').find(FirstName : leadFirstName,LastName : leadLastName).update({ Company: leadComp,Title: leadTitle,Source: leadSource }, function(err, result) {
+                conn.sobject('Lead').find('FirstName' : leadFirstName,'LastName' : leadLastName).update({ Company: leadComp,Title: leadTitle,Source: leadSource }, function(err, result) {
                     if (err) {
                         reject(err);
                     }
