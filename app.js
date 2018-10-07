@@ -204,7 +204,7 @@ var leadUpdate = function(leadFirstName,leadLastName,leadComp,leadTitle,leadSour
 			if(err){reject(err);}
 			else{ 
 				//conn.sobject('Opportunity').find({ 'Name' : opptName }).update({ Amount: OppAmt }, function(err, result) {
-                conn.sobject('Lead').find({'FirstName' : leadFirstName,'LastName' : leadLastName}).update({ Company: leadComp,Title: leadTitle,Source: leadSource }, function(err, result) {
+                conn.sobject('Lead').find({'FirstName' : leadFirstName,'LastName' : leadLastName}).update({ Company: leadComp,Title: leadTitle,LeadSource: leadSource }, function(err, result) {
                     if (err) {
                         reject(err);
                     }
