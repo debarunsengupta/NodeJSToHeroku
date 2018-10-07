@@ -196,6 +196,26 @@ var accUpdate = function(accName,accRating,accType,accIndustry){
 });
 }
 
+var accBillingUpdate = function(accountName,accBillingStrt,accBillingCty,accBillingstate,accBillingZip,accBillingCountry){
+	return new Promise((resolve,reject)=>{
+		acctName = accName;
+		conn.login(process.env.username, process.env.pass, (err, res)=>{
+			if(err){reject(err);}
+			else{ 
+                conn.sobject('Account').find({ 'Name' : accountName }).update({ BillingStreet: accBillingStrt,BillingCity: accBillingCty,BillingState: accBillingstate,BillingPostalCode : accBillingZip,BillingCountry : accBillingCountry}, function(err, result) {
+                    if (err) {
+                        reject(err);
+                    }
+                    else{
+                        resolve(result);
+                    }
+                });
+			
+            }
+		});
+});
+}
+
 
 var leadUpdate = function(leadFirstName,leadLastName,leadComp,leadTitle,leadSource){
 	console.log('value feteched here',leadFirstName+' '+leadLastName);
@@ -534,10 +554,25 @@ app.intent('updateAcc',(conv,{accName,accRating,accType,accIndustry})=>
 		
 	}).catch((err)=>{
 	conv.ask(new SimpleResponse({speech:"Error while updating Account info",text:"Error while updating Account info"}));});	
-	});
-	
-	app.intent('updateLead',(conv,{leadFirstName,leadLastName,leadComp,leadTitle,leadSource})=>
+});
+
+app.intent('updateAccAddr',(conv,{accountName,accBillingStrt,accBillingCty,accBillingstate,accBillingZip,accBillingCountry})=>
 	{
+	//console.log('Param:',params);
+	console.log('Param accName:',accountName);
+	console.log('Param accBillingStrt:',accBillingStrt);
+	   return accBillingUpdate(accountName,accBillingStrt,accBillingCty,accBillingstate,accBillingZip,accBillingCountry).then((resp)=>{
+		conv.ask(new SimpleResponse({speech:"Account details updated",text:"Account details updated"}));
+		//conv.ask(new Suggestions('Submit for Approval'));
+		
+	})
+	.catch((err)=>{
+		console.log('error is',err);
+		conv.ask(new SimpleResponse({speech:"Error while updating Account info",text:"Error while updating Account info"}));});	
+});
+	
+app.intent('updateLead',(conv,{leadFirstName,leadLastName,leadComp,leadTitle,leadSource})=>
+{
 	//console.log('Param:',params);
 	//console.log('Param leadName:',leadName);
 	console.log('Param leadSource:',leadSource);
@@ -549,7 +584,7 @@ app.intent('updateAcc',(conv,{accName,accRating,accType,accIndustry})=>
 	}).catch((err)=>{
 		   console.log('the err lead is',err);
 	conv.ask(new SimpleResponse({speech:"Error while updating Lead info",text:"Error while updating Lead info"}));});	
-	});
+});
 
 app.intent('updateOppAmt',(conv,{OppAmt})=>{
     
@@ -586,7 +621,7 @@ app.intent('SubmitForApproval',(conv)=>{
         }).catch((err)=>{
         console.log('error msg:',err);
 		reqleadid='error';
-	    conv.ask(new SimpleResponse({speech:"Error while Submitting for Approval",text:"Error while Submitting for Approval"}));
+	    /* conv.ask(new SimpleResponse({speech:"Error while Submitting for Approval",text:"Error while Submitting for Approval"})); */
 		});
 		}
 		else
