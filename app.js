@@ -517,7 +517,7 @@ app.intent('getAccInfo',(conv,params)=>{
 });
 
 app.intent('exitintent', (conv) => {
-  conv.close('Okay, lets try this again later.');
+  conv.close('GoodBye. Please feel free to drop in again');
 });
 app.intent('getOppprty',(conv,{oppStage})=>{
     var strnm = '';
