@@ -176,6 +176,28 @@ var specificOppUpdate = function(OppAmt){
 });
 }
 
+var oppStageUpdate = function(oppStage){
+	return new Promise((resolve,reject)=>{
+		console.log('oppStage -->',oppStage);
+		
+		
+		conn.login(process.env.username, process.env.pass, (err, res)=>{
+			if(err){reject(err);}
+			else{ 
+                conn.sobject('Opportunity').find({ 'Name' : opptName }).update({ StageName : oppStage }, function(err, result) {
+                    if (err) {
+                        reject(err);
+                    }
+                    else{
+                        resolve(result);
+                    }
+                });
+			
+            }
+		});
+});
+}
+
 var accUpdate = function(accName,accRating,accType,accIndustry){
 	return new Promise((resolve,reject)=>{
 		acctName = accName;
@@ -599,11 +621,30 @@ app.intent('updateOppAmt',(conv,{OppAmt})=>{
 		
 		
 		conv.ask(new SimpleResponse({speech:"Opportunity amount updated",text:"Opportunity amount updated"}));
-		
+		conv.ask(new Suggestions('Update Opportunity Stage.'));
 		
 	}).catch((err)=>{
         console.log('error',err);
 	conv.ask(new SimpleResponse({speech:"Error while updating Opportunity amount",text:"Error while updating Opportunity amount"}));});	
+	
+});
+
+app.intent('updateOppStage',(conv,{oppStage})=>{
+	
+    console.log('opp stage passed from google' + oppStage);
+	
+	return oppStageUpdate(oppStage).then((resp)=>{
+        
+		console.log('response',resp);
+		
+		conv.ask(new SimpleResponse({speech:"Ok.Opportunity Stage has been updated",text:"Ok.Opportunity Stage has been updated"}));
+		
+		
+	})
+	.catch((err)=>{
+        console.log('error',err);
+		conv.ask(new SimpleResponse({speech:"Error while updating Opportunity Stage",text:"Error while updating Opportunity Stage"}));
+	});	
 	
 });
 
@@ -687,3 +728,4 @@ server.post('/fulfillment',app);
 server.listen(port, function () {
     console.log("Server is up and running...");
 });
+x
