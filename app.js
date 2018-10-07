@@ -196,13 +196,14 @@ var accUpdate = function(accName,accRating,accType,accIndustry){
 }
 
 
-var leadUpdate = function(leadName,leadComp,leadTitle,leadSource){
+var leadUpdate = function(leadFirstName,leadLastName,leadComp,leadTitle,leadSource){
+	console.log('value feteched here',leadFirstName+' '+leadLastName);
 	return new Promise((resolve,reject)=>{
 		acctName = accName;
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
 			if(err){reject(err);}
 			else{ 
-                conn.sobject('Lead').find({ 'Name' : leadName }).update({ Company: leadComp,Title: leadTitle,Source: leadSource }, function(err, result) {
+                conn.sobject('Lead').find({'Name' : leadFirstName+' '+leadLastName}).update({ Company: leadComp,Title: leadTitle,Source: leadSource }, function(err, result) {
                     if (err) {
                         reject(err);
                     }
@@ -531,12 +532,12 @@ app.intent('updateAcc',(conv,{accName,accRating,accType,accIndustry})=>
 	conv.ask(new SimpleResponse({speech:"Error while updating Account info",text:"Error while updating Account info"}));});	
 	});
 	
-	app.intent('updateLead',(conv,{leadName,leadComp,leadTitle,leadSource})=>
+	app.intent('updateLead',(conv,{leadFirstName,leadLastName,leadComp,leadTitle,leadSource})=>
 	{
 	//console.log('Param:',params);
 	console.log('Param leadName:',leadName);
 	console.log('Param leadSource:',leadSource);
-	   return leadUpdate(leadName,leadComp,leadTitle,leadSource).then((resp)=>{
+	   return leadUpdate(leadFirstName,leadLastName,leadComp,leadTitle,leadSource).then((resp)=>{
 		conv.ask(new SimpleResponse({speech:"Lead information updated",text:"Lead information updated"}));
 		//conv.ask(new Suggestions('Submit for Approval'));
 		
