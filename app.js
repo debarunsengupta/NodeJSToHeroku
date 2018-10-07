@@ -447,6 +447,7 @@ app.intent('createLead',(conv,params)=>{
 		//conv.ask(new Suggestions('Fetch Recent Accounts'));
 		//conv.ask(new Suggestions('Submit for Approval'));
 	}).catch((err)=>{
+		console.log('the error is',err);
 	conv.ask(new SimpleResponse({speech:"Error while creating salesforce lead",text:"Error while creating salesforce lead"}));});	
 });
 
