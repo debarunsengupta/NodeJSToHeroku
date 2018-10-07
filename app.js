@@ -70,7 +70,7 @@ var leadCreation = function (leadFName,leadLName,leadCompany){
 		conn.login(process.env.username, process.env.pass, function(err, res){
 			if(err){reject(err);}
 			else{   
-				conn.sobject("Lead").create({ FirstName : leadFName , LastName : leadLName,Company : leadCompany}, function(error, ret) {
+				conn.sobject("Lead").create({ FirstName : leadFName , LastName : leadLName,Company : 'testXYZ'}, function(error, ret) {
 				  if (error || !ret.success) { 
 					  
 					  reject(error); 
