@@ -417,6 +417,11 @@ app.intent('AccountName',(conv,params)=>{
 });
 
 app.intent('createLead',(conv,leadFName,leadLName,leadCompany)=>{
+	
+	console.log(leadFName);
+	console.log(leadLName);
+	console.log(leadCompany);
+	
 	return leadCreation(leadFName,leadLName,leadCompany).then((resp)=>{
 		conv.ask(new SimpleResponse({speech:"We are able to create Lead named "+leadFName+' '+leadLName,text:"We are able to create Lead named "+leadFName+' '+leadLName}));
 		//conv.ask(new Suggestions('Update Rating,Type and Industry on the account named ' +params.AccountName+' as Hot,Customer - Direct and Consulting respectively.'));
