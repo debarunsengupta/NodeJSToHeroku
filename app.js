@@ -198,7 +198,7 @@ var accUpdate = function(accName,accRating,accType,accIndustry){
 
 var accBillingUpdate = function(accountName,accBillingStrt,accBillingCty,accBillingstate,accBillingZip,accBillingCountry){
 	return new Promise((resolve,reject)=>{
-		acctName = accName;
+		
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
 			if(err){reject(err);}
 			else{ 
