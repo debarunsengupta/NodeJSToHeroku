@@ -62,6 +62,32 @@ var accountCreation=function (acctName){
 });
 }
 
+
+var leadCreation = function (leadFName,leadLName){
+	return new Promise((resolve,reject)=>{
+		console.log('Lead Name passed is -->',leadFName+' '+leadLName);
+		conn.login(process.env.username, process.env.pass, function(err, res){
+			if(err){reject(err);}
+			else{   
+				conn.sobject("Lead").create({ FirstName : leadFName , LastName : leadLName}, function(error, ret) {
+				  if (error || !ret.success) { 
+					  
+					  reject(error); 
+				  }
+				  else
+				   {
+					 
+					 resolve(ret);
+				  }
+			 
+				  });
+			
+			}
+		});
+	});
+}
+
+
 var accountRetrieval=function (days){
 	return new Promise((resolve,reject)=>{
 		console.log('days -->',days);
@@ -371,7 +397,7 @@ app.intent('connect_salesforce',(conv,params)=>{
 
 app.intent('Default Welcome Intent', (conv) => {
 	conv.ask(new SimpleResponse({speech:"Hello, this is your friendly salesforce connector.I would like to help you with some basic salesforce functionalities.Here are some suggestions",text:"Hello, this is your friendly salesforce connector.I would like to help you with some basic salesforce functionalities.Here are some suggestions"}));
-        conv.ask(new Suggestions('Create new Lead'));
+    conv.ask(new Suggestions('Create new Lead'));
 	//conv.ask(new Suggestions('Convert Lead'));
 	conv.ask(new Suggestions('Create a new Account'));
 	//conv.ask(new Suggestions('Submit for Approval'));
@@ -387,6 +413,16 @@ app.intent('AccountName',(conv,params)=>{
 		//conv.ask(new Suggestions('Submit for Approval'));
 	}).catch((err)=>{
 	conv.ask(new SimpleResponse({speech:"Error while creating salesforce account",text:"Error while creating salesforce account"}));});	
+});
+
+app.intent('createLead',(conv,leadFName,leadLName)=>{
+	return leadCreation(leadFName,leadLName).then((resp)=>{
+		conv.ask(new SimpleResponse({speech:"We are able to create Lead named "+leadFName+' '+leadLName,text:"We are able to create Lead named "+leadFName+' '+leadLName}));
+		//conv.ask(new Suggestions('Update Rating,Type and Industry on the account named ' +params.AccountName+' as Hot,Customer - Direct and Consulting respectively.'));
+		//conv.ask(new Suggestions('Fetch Recent Accounts'));
+		//conv.ask(new Suggestions('Submit for Approval'));
+	}).catch((err)=>{
+	conv.ask(new SimpleResponse({speech:"Error while creating salesforce lead",text:"Error while creating salesforce lead"}));});	
 });
 
 
