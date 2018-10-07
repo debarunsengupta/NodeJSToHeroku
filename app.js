@@ -63,13 +63,14 @@ var accountCreation=function (acctName){
 }
 
 
-var leadCreation = function (leadFName,leadLName){
+var leadCreation = function (leadFName,leadLName,leadCompany){
 	return new Promise((resolve,reject)=>{
 		console.log('Lead Name passed is -->',leadFName+' '+leadLName);
+		console.log('Lead Company passed is -->',leadCompany);
 		conn.login(process.env.username, process.env.pass, function(err, res){
 			if(err){reject(err);}
 			else{   
-				conn.sobject("Lead").create({ FirstName : leadFName , LastName : leadLName}, function(error, ret) {
+				conn.sobject("Lead").create({ FirstName : leadFName , LastName : leadLName,Company : leadCompany}, function(error, ret) {
 				  if (error || !ret.success) { 
 					  
 					  reject(error); 
@@ -415,8 +416,8 @@ app.intent('AccountName',(conv,params)=>{
 	conv.ask(new SimpleResponse({speech:"Error while creating salesforce account",text:"Error while creating salesforce account"}));});	
 });
 
-app.intent('createLead',(conv,leadFName,leadLName)=>{
-	return leadCreation(leadFName,leadLName).then((resp)=>{
+app.intent('createLead',(conv,leadFName,leadLName,leadCompany)=>{
+	return leadCreation(leadFName,leadLName,leadCompany).then((resp)=>{
 		conv.ask(new SimpleResponse({speech:"We are able to create Lead named "+leadFName+' '+leadLName,text:"We are able to create Lead named "+leadFName+' '+leadLName}));
 		//conv.ask(new Suggestions('Update Rating,Type and Industry on the account named ' +params.AccountName+' as Hot,Customer - Direct and Consulting respectively.'));
 		//conv.ask(new Suggestions('Fetch Recent Accounts'));
