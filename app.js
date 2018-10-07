@@ -199,7 +199,7 @@ var accUpdate = function(accName,accRating,accType,accIndustry){
 var leadUpdate = function(leadFirstName,leadLastName,leadComp,leadTitle,leadSource){
 	console.log('value feteched here',leadFirstName+' '+leadLastName);
 	return new Promise((resolve,reject)=>{
-		acctName = accName;
+		
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
 			if(err){reject(err);}
 			else{ 
