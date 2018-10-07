@@ -544,6 +544,7 @@ app.intent('updateAcc',(conv,{accName,accRating,accType,accIndustry})=>
 		//conv.ask(new Suggestions('Submit for Approval'));
 		
 	}).catch((err)=>{
+		   console.log('the err lead is',err);
 	conv.ask(new SimpleResponse({speech:"Error while updating Lead info",text:"Error while updating Lead info"}));});	
 	});
 
