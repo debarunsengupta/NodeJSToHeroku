@@ -549,7 +549,7 @@ app.intent('updateAcc',(conv,{accName,accRating,accType,accIndustry})=>
 	console.log('Param accName:',accName);
 	console.log('Param accType:',accType);
 	   return accUpdate(accName,accRating,accType,accIndustry).then((resp)=>{
-		conv.ask(new SimpleResponse({speech:"Account information updated",text:"Account information updated"}));
+		conv.ask(new SimpleResponse({speech:"Ok.Account information updated",text:"Ok.Account information updated"}));
 		conv.ask(new Suggestions('Submit for Approval'));
 		
 	}).catch((err)=>{
@@ -562,7 +562,7 @@ app.intent('updateAccAddr',(conv,{accountName,accBillingStrt,accBillingCty,accBi
 	console.log('Param accName:',accountName);
 	console.log('Param accBillingStrt:',accBillingStrt);
 	   return accBillingUpdate(accountName,accBillingStrt,accBillingCty,accBillingstate,accBillingZip,accBillingCountry).then((resp)=>{
-		conv.ask(new SimpleResponse({speech:"Account details updated",text:"Account details updated"}));
+		conv.ask(new SimpleResponse({speech:"Ok.Account details updated",text:"Ok.Account details updated"}));
 		//conv.ask(new Suggestions('Submit for Approval'));
 		
 	})
@@ -577,7 +577,7 @@ app.intent('updateLead',(conv,{leadFirstName,leadLastName,leadComp,leadTitle,lea
 	//console.log('Param leadName:',leadName);
 	console.log('Param leadSource:',leadSource);
 	   return leadUpdate(leadFirstName,leadLastName,leadComp,leadTitle,leadSource).then((resp)=>{
-		conv.ask(new SimpleResponse({speech:"Lead information updated",text:"Lead information updated"}));
+		conv.ask(new SimpleResponse({speech:"Ok.Lead information updated",text:"Ok.Lead information updated"}));
 		conv.ask(new Suggestions('Convert Lead'));
 		
 		
