@@ -535,7 +535,7 @@ app.intent('updateAcc',(conv,{accName,accRating,accType,accIndustry})=>
 	app.intent('updateLead',(conv,{leadFirstName,leadLastName,leadComp,leadTitle,leadSource})=>
 	{
 	//console.log('Param:',params);
-	console.log('Param leadName:',leadName);
+	//console.log('Param leadName:',leadName);
 	console.log('Param leadSource:',leadSource);
 	   return leadUpdate(leadFirstName,leadLastName,leadComp,leadTitle,leadSource).then((resp)=>{
 		conv.ask(new SimpleResponse({speech:"Lead information updated",text:"Lead information updated"}));
