@@ -544,7 +544,7 @@ app.intent('updateAcc',(conv,{accName,accRating,accType,accIndustry})=>
 	   return leadUpdate(leadFirstName,leadLastName,leadComp,leadTitle,leadSource).then((resp)=>{
 		conv.ask(new SimpleResponse({speech:"Lead information updated",text:"Lead information updated"}));
 		conv.ask(new Suggestions('Convert Lead'));
-		conv.ask(new Suggestions('Can you please convert the lead for me?'));
+		
 		
 	}).catch((err)=>{
 		   console.log('the err lead is',err);
