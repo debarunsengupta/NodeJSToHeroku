@@ -26,7 +26,7 @@ server.use(bodyParser.json());
 // create serve and configure it.
 
 
-var app=dialogflow();
+var app=dialogflow({clientId: '935413124579-u9dogkgvtm558onccdpctsuu4vmoin2d.apps.googleusercontent.com'});
 var signIN=new Promise((resolve,reject)=>{
 	conn.login(process.env.username, process.env.pass, function(err, res){
 		if(err){reject(err);}
@@ -430,7 +430,23 @@ var leaddetails=function (leadname){
   
 });
 }
-
+// Create a Dialogflow intent with the `actions_intent_SIGN_IN` event
+app.intent('Get Signin', (conv, params, signin) => {
+  if (signin.status === 'OK') {
+    const email = conv.user.email
+    conv.ask(`I got your email as ${email}. What do you want to do next?`)
+  } else {
+    conv.ask(`I won't be able to save your data, but what do you want to next?`)
+  }
+})
+app.intent('actions.intent.SIGN_IN', (conv, input, signin) => {
+  if (signin.status === 'OK') {
+    const email = conv.user.email
+    conv.ask(`I got your email as ${email}. What do you want to do next?`)
+  } else {
+    conv.ask(`I won't be able to save your data, but what do you want to next?`)
+  }
+})
 
 app.intent('connect_salesforce',(conv,params)=>{
     
