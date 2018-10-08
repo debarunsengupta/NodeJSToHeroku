@@ -436,7 +436,8 @@ app.intent('Get Signin', (conv, params, signin) => {
 	console.log('signin:',signin);
 	console.log('signin.status:',signin.status);
   if (signin.status === 'OK') {
-    const email = conv.user.email
+    const email = conv.user.email;
+	  console.log('email fetched:',email);
     conv.ask('I got your email as ${email}. What do you want to do next?')
   } else {
     conv.ask('I wont be able to save your data, but what do you want to next?')
@@ -483,7 +484,7 @@ app.intent('Default Welcome Intent', (conv) => {
 	//conv.ask(new Suggestions('Submit Account for Approval'));
 	console.log('conv.user',conv.user);
 	console.log('conv.user.id',conv.user.id);
-	//console.log('conv.user.profile.payload.sub',conv.user.profile.payload.sub);
+	console.log('conv.user.profile.payload.email',conv.user.profile.payload.email);
 	//console.log('conv.user.profile.payload',conv.user.profile.payload);
 	 //conv.ask(new SignIn('To get your account details'))
 });
