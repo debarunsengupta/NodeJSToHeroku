@@ -442,9 +442,9 @@ app.intent('Get Signin', (conv, params, signin) => {
 app.intent('actions.intent.SIGN_IN', (conv, input) => {
 	console.log('here');
   
-    const email = conv.user.email
-    console.log('email:',email);
-    conv.ask('I got your email as ${email}. What do you want to do next?')
+	const payload=conv.user.profile.payload;
+	 console.log('payload:',payload);
+    conv.ask('I got your email. What do you want to do next?')
   
 })
 
