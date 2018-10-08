@@ -440,10 +440,13 @@ app.intent('Get Signin', (conv, params, signin) => {
   }
 })
 app.intent('actions.intent.SIGN_IN', (conv, input, signin) => {
+	console.log('here');
   if (signin.status === 'OK') {
+	  console.log('here1');
     const email = conv.user.email
     conv.ask(`I got your email as ${email}. What do you want to do next?`)
   } else {
+	    console.log('here2');
     conv.ask(`I won't be able to save your data, but what do you want to next?`)
   }
 })
