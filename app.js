@@ -432,7 +432,7 @@ var leaddetails=function (leadname){
 });
 }
 // Create a Dialogflow intent with the `actions_intent_SIGN_IN` event
-
+/*
 app.intent('Get Signin', (conv, params, signin) => {
 	console.log('signin:',signin);
 	console.log('signin.status:',signin.status);
@@ -444,7 +444,7 @@ app.intent('Get Signin', (conv, params, signin) => {
     conv.ask('I wont be able to save your data, but what do you want to next?')
   }
 })
-/*
+
 app.intent("Start Sign-in", conv => {
   conv.ask(new SignIn("To personalize"));
 });*/
