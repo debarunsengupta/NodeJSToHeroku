@@ -490,6 +490,7 @@ app.intent('Default Welcome Intent', (conv) => {
 	console.log('conv.user.id',conv.user.id);
 	//console.log('conv.user.profile.payload.sub',conv.user.profile.payload.sub);
 	//console.log('conv.user.profile.payload',conv.user.profile.payload);
+	 conv.ask(new SignIn('To get your account details'))
 });
 
 
