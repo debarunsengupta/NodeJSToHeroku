@@ -15,6 +15,7 @@ var conn = new jsforce.Connection({
 }); 
 const {
     dialogflow,
+    SignIn,
     SimpleResponse,
     Image,
     Suggestions,
@@ -447,7 +448,9 @@ app.intent('actions.intent.SIGN_IN', (conv, input) => {
     conv.ask('I got your email. What do you want to do next?')
   
 })
-
+app.intent("Start Sign-in", conv => {
+  conv.ask(new SignIn("To personalize"));
+});
 app.intent('connect_salesforce',(conv,params)=>{
     
    	signIN.then((resp)=>{
