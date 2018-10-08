@@ -432,6 +432,7 @@ var leaddetails=function (leadname){
 });
 }
 // Create a Dialogflow intent with the `actions_intent_SIGN_IN` event
+/*
 app.intent('Get Signin', (conv, params, signin) => {
 	console.log('signin:',signin);
 	console.log('signin.status:',signin.status);
@@ -446,7 +447,7 @@ app.intent('Get Signin', (conv, params, signin) => {
 
 app.intent("Start Sign-in", conv => {
   conv.ask(new SignIn("To personalize"));
-});
+});*/
 app.intent('connect_salesforce',(conv,params)=>{
     
    	signIN.then((resp)=>{
@@ -483,7 +484,7 @@ app.intent('Default Welcome Intent', (conv) => {
 	//conv.ask(new Suggestions('Submit for Approval'));
 	//conv.ask(new Suggestions('Submit Account for Approval'));
 	console.log('conv.user',conv.user);
-	console.log('conv.user.id',conv.user.id);
+	//console.log('conv.user.id',conv.user.id);
 	console.log('conv.user.profile.payload.email',conv.user.profile.payload.email);
 	//console.log('conv.user.profile.payload',conv.user.profile.payload);
 	 //conv.ask(new SignIn('To get your account details'))
