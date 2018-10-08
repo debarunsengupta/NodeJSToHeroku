@@ -433,21 +433,16 @@ var leaddetails=function (leadname){
 }
 // Create a Dialogflow intent with the `actions_intent_SIGN_IN` event
 app.intent('Get Signin', (conv, params, signin) => {
+	console.log('signin:',signin);
+	console.log('signin.status:',signin.status);
   if (signin.status === 'OK') {
     const email = conv.user.email
-    conv.ask(`I got your email as ${email}. What do you want to do next?`)
+    conv.ask('I got your email as ${email}. What do you want to do next?')
   } else {
-    conv.ask(`I won't be able to save your data, but what do you want to next?`)
+    conv.ask('I wont be able to save your data, but what do you want to next?')
   }
 })
-app.intent('actions.intent.SIGN_IN', (conv, input) => {
-	console.log('here');
-  
-	const payload=conv.user.profile.payload;
-	 console.log('payload:',payload);
-    conv.ask('I got your email. What do you want to do next?')
-  
-})
+
 app.intent("Start Sign-in", conv => {
   conv.ask(new SignIn("To personalize"));
 });
