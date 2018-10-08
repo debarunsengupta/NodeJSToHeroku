@@ -469,8 +469,8 @@ app.intent('Default Welcome Intent', (conv) => {
 	//conv.ask(new Suggestions('Submit Account for Approval'));
 	console.log('conv.user',conv.user);
 	console.log('conv.user.id',conv.user.id);
-	//console.log('conv.user.profile.payload.sub',conv.user.profile.payload.sub);
-	//console.log('conv.user.profile.payload',conv.user.profile.payload);
+	console.log('conv.user.profile.payload.sub',conv.user.profile.payload.sub);
+	console.log('conv.user.profile.payload',conv.user.profile.payload);
 });
 
 
