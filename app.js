@@ -443,6 +443,7 @@ app.intent('actions.intent.SIGN_IN', (conv, input) => {
 	console.log('here');
   
     const email = conv.user.email
+    console.log('email:',email);
     conv.ask('I got your email as ${email}. What do you want to do next?')
   
 })
