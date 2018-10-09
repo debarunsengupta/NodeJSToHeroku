@@ -751,8 +751,8 @@ app.intent('ConvertLead',(conv)=>{
 	    conv.ask(new SimpleResponse({speech:"Error while fetching lead id",text:"Error while fetching lead id"}));});	
 });
 
-//var port = process.env.PORT || 3000;
-var port=3306;
+var port = process.env.PORT || 3000;
+//var port=3306;
 //var arr = new Array();
  
 
