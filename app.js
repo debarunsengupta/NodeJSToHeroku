@@ -7,7 +7,7 @@ const jsforce = require('jsforce');
 const server = express();
 var db=require('mysql');
 //var dbConfig = { host: 'localhost', user: 'root', database: 'testdb' };
-var connection=db.createConnection({ host: 'localhost', user: 'root', database: 'testdb',socketPath: '/tmp/mysql.sock' });
+var connection=db.createConnection({ host: 'localhost', user: 'root', database: 'testdb'});
 
 
 connection.connect();
