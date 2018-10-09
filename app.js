@@ -761,13 +761,7 @@ server.post('/fulfillment',app);
 
 
 
-server.listen(3306, function () {
-	console.log('port',port);
-    console.log("Server is up and running...");
-});
-
-/*
 server.listen(port, function () {
 	console.log('port',port);
     console.log("Server is up and running...");
-});*/
+});
