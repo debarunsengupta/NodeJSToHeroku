@@ -216,13 +216,13 @@ var oppStageUpdate = function(oppStage){
 });
 }
 
-var accUpdate = function(accName,accRating,accType,accIndustry){
+var accUpdate = function(accName,accIndustry){
 	return new Promise((resolve,reject)=>{
 		acctName = accName;
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
 			if(err){reject(err);}
 			else{ 
-                conn.sobject('Account').find({ 'Name' : accName }).update({ Rating: accRating,Type: accType,Industry: accIndustry }, function(err, result) {
+                conn.sobject('Account').find({ 'Name' : accName }).update({ Industry: accIndustry }, function(err, result) {
                     if (err) {
                         reject(err);
                     }
@@ -257,7 +257,7 @@ var accBillingUpdate = function(accountName,accBillingStrt,accBillingCty,accBill
 }
 
 
-var leadUpdate = function(leadFirstName,leadLastName,leadComp,leadTitle,leadSource){
+var leadUpdate = function(leadFirstName,leadLastName,leadComp,leadSource){
 	console.log('value feteched here',leadFirstName+' '+leadLastName);
 	leadName=leadFirstName+' '+leadLastName;
 	return new Promise((resolve,reject)=>{
@@ -266,7 +266,7 @@ var leadUpdate = function(leadFirstName,leadLastName,leadComp,leadTitle,leadSour
 			if(err){reject(err);}
 			else{ 
 				//conn.sobject('Opportunity').find({ 'Name' : opptName }).update({ Amount: OppAmt }, function(err, result) {
-                conn.sobject('Lead').find({'FirstName' : leadFirstName,'LastName' : leadLastName}).update({ Company: leadComp,Title: leadTitle,LeadSource: leadSource }, function(err, result) {
+                conn.sobject('Lead').find({'FirstName' : leadFirstName,'LastName' : leadLastName}).update({ Company: leadComp,LeadSource: leadSource }, function(err, result) {
                     if (err) {
                         reject(err);
                     }
@@ -603,12 +603,12 @@ app.intent('getSpecificOpp',(conv,{OppName})=>{
 	
 });
 
-app.intent('updateAcc',(conv,{accName,accRating,accType,accIndustry})=>
+app.intent('updateAcc',(conv,{accName,accIndustry})=>
 	{
 	//console.log('Param:',params);
 	console.log('Param accName:',accName);
-	console.log('Param accType:',accType);
-	   return accUpdate(accName,accRating,accType,accIndustry).then((resp)=>{
+	//console.log('Param accType:',accType);
+	   return accUpdate(accName,accIndustry).then((resp)=>{
 		conv.ask(new SimpleResponse({speech:"Ok.Account information updated",text:"Ok.Account information updated"}));
 		conv.ask(new Suggestions('Submit for Approval'));
 		
@@ -631,12 +631,12 @@ app.intent('updateAccAddr',(conv,{accountName,accBillingStrt,accBillingCty,accBi
 		conv.ask(new SimpleResponse({speech:"Error while updating Account info",text:"Error while updating Account info"}));});	
 });
 	
-app.intent('updateLead',(conv,{leadFirstName,leadLastName,leadComp,leadTitle,leadSource})=>
+app.intent('updateLead',(conv,{leadFirstName,leadLastName,leadComp,leadSource})=>
 {
 	//console.log('Param:',params);
 	//console.log('Param leadName:',leadName);
 	console.log('Param leadSource:',leadSource);
-	   return leadUpdate(leadFirstName,leadLastName,leadComp,leadTitle,leadSource).then((resp)=>{
+	   return leadUpdate(leadFirstName,leadLastName,leadComp,leadSource).then((resp)=>{
 		conv.ask(new SimpleResponse({speech:"Ok.Lead information updated",text:"Ok.Lead information updated"}));
 		conv.ask(new Suggestions('Convert Lead'));
 		
