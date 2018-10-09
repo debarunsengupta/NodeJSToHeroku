@@ -725,11 +725,11 @@ app.intent('ConvertLead',(conv)=>{
       
 		  return leaddetails(leadName).then((resp)=>{
 			  var str='The Lead converted account name is ';
-          console.log('Inside called 6');
-		 console.log('response.records[0].ConvertedAccount.Name',resp.records[0].ConvertedAccount["Name"]);
-			str+=resp.records[0].ConvertedAccount["Name"]+',';
-			str+='The Lead converted contact name is ' +resp.records[0].ConvertedContact["Name"]+',';
-			str+='The Lead converted opportunity name is '+resp.records[0].ConvertedOpportunity["Name"]+'.';
+			console.log('Inside called 6');
+			console.log('response.records[0].ConvertedAccount.Name',resp.records[0].ConvertedAccount["Name"]);
+			str+=resp.records[0].ConvertedAccount["Name"]+'and ';
+			str+='the Lead converted Contact name is ' +resp.records[0].ConvertedContact["Name"]+' and ';
+			str+='the Lead converted opportunity name is '+resp.records[0].ConvertedOpportunity["Name"]+'.';
 		conv.ask(new SimpleResponse({speech:str,text:str}));
 	}).catch((err)=>{
         console.log('error',err);
