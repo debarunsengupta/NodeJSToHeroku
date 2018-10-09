@@ -9,11 +9,17 @@ var db=require('mysql');
 //var dbConfig = { host: 'localhost', user: 'root', database: 'testdb' };
 var connection=db.createConnection({ host: 'localhost', user: 'root', database: 'testdb' });
 
-connection.connect((err) => {
-  if (err) throw err;
-  console.log('Connected!');
+
+connection.connect();
+
+connection.query('SELECT * from usersfcredentials', function(err, rows, fields) {
+  if (!err)
+    console.log('The solution is: ', rows);
+  else
+    console.log('Error while performing Query.');
 });
 
+connection.end();
 
 var strName='';
 var opptName = '';
