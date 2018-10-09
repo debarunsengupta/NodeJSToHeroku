@@ -6,8 +6,8 @@ const bodyParser=require('body-parser');
 const jsforce = require('jsforce'); 
 const server = express();
 var db=require('mysql');
-var dbConfig = { host: 'localhost', user: 'root', database: 'testdb' };
-var connection=db.createConnection(conn);
+//var dbConfig = { host: 'localhost', user: 'root', database: 'testdb' };
+var connection=db.createConnection({ host: 'localhost', user: 'root', database: 'testdb' });
 
 connection.connect((err) => {
   if (err) throw err;
