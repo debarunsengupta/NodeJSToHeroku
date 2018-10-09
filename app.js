@@ -5,6 +5,16 @@ const http = require('https');
 const bodyParser=require('body-parser');
 const jsforce = require('jsforce'); 
 const server = express();
+var db=require('mysql');
+var dbConfig = { host: 'localhost', user: 'root', database: 'testdb' };
+var connection=db.createConnection(conn);
+
+connection.connect((err) => {
+  if (err) throw err;
+  console.log('Connected!');
+});
+
+
 var strName='';
 var opptName = '';
 var acctName = '';
