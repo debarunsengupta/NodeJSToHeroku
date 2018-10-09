@@ -7,7 +7,7 @@ const jsforce = require('jsforce');
 const server = express();
 var db=require('mysql');
 //var dbConfig = { host: 'localhost', user: 'root', database: 'testdb' };
-var connection=db.createConnection({ host: 'localhost', user: 'root', database: 'testdb',socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock' });
+var connection=db.createConnection({ host: 'localhost', user: 'root', database: 'testdb'});
 
 
 connection.connect();
@@ -764,5 +764,6 @@ server.post('/fulfillment',app);
 
 
 server.listen(port, function () {
+	console.log('port',port);
     console.log("Server is up and running...");
 });
