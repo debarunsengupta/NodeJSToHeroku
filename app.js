@@ -17,6 +17,7 @@ connection.query('SELECT * from usersfcredentials', function(err, rows, fields) 
     console.log('The solution is: ', rows);
   else
     console.log('Error while performing Query.');
+	console.log('err',err);
 });
 
 connection.end();
