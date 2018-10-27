@@ -610,7 +610,7 @@ app.intent('getCRUDPerms',(conv,{sObject,profileName})=>{
 		strResult += resp.records[0].PermissionsEdit + ',';
 		strResult += resp.records[0].PermissionsDelete + ',';
            
-		conv.ask(new SimpleResponse({speech:"CRUD permission for "+sObject+" on"+" profileName is "+strResult+ " respectively",text:"CRUD permission for "+sObject+" on"+" profileName is "+strResult+ " respectively"}));
+		conv.ask(new SimpleResponse({speech:"CRUD permission for "+sObject+" on "+profileName+ " is "+strResult+ " respectively",text:"CRUD permission for "+sObject+" on "+profileName+ " is "+strResult+ " respectively"}));
 		
 	}).catch((err)=>{
         console.log('error',err);
