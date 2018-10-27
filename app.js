@@ -177,13 +177,7 @@ var getCrudInfo = function(sObject,profileName){
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
 			if(err){reject(err);}
 			else{ 
-				console.log('conn.accessToken:'+conn.accessToken);
-				var header='Bearer '+conn.accessToken;
-				var options = { Authorization: header};
-				
-				//conn.apex.get("/crudINFO?sObject="+sObject+"&profileName="+profileName,options,function(err, res){
-				conn.apex.get("/crudINFO?sObject=Campaign&profileName=System%20Administrator,options,function(err, res){
-					
+                conn.query('select PermissionsRead,PermissionsCreate,PermissionsEdit,PermissionsDelete from ObjectPermissions where SObjectType = \''+sObject+'\' and parent.profile.name = \''+profileName+'\'', function(err, result){
                     if (err) {
                         reject(err);
                     }
@@ -608,8 +602,15 @@ app.intent('getCRUDPerms',(conv,{sObject,profileName})=>{
 	console.log('profile passed from google'+profileName);
 	
 	return getCrudInfo(sObject,profileName).then((resp)=>{
+        
+		var strResult = '';
+		console.log('response',resp);
+        strResult += resp.records[0].PermissionsCreate + ',';
+		strResult += resp.records[0].PermissionsRead + ',';
+		strResult += resp.records[0].PermissionsEdit + ',';
+		strResult += resp.records[0].PermissionsDelete + ',';
            
-		conv.ask(new SimpleResponse({speech:"CRUD permission for "+sObject+" object on "+profileName+ " profile is "+resp+ " respectively",text:"CRUD permission for "+sObject+" object on "+profileName+ " profile is "+resp+ " respectively"}));
+		conv.ask(new SimpleResponse({speech:"CRUD permission for "+sObject+" object on "+profileName+ " profile is "+strResult+ " respectively",text:"CRUD permission for "+sObject+" object on "+profileName+ " profile is "+strResult+ " respectively"}));
 		
 	}).catch((err)=>{
         console.log('error',err);
