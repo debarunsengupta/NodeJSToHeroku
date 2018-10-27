@@ -156,7 +156,7 @@ var specificOppRetrieval=function(OppName){
 		console.log('oppName -->',OppName);
 		opptName  = OppName;
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
-			if(err){reject(err);}
+			if(err){reject(err);}	
 			else{ 
                 conn.query('select Id,Name,Amount,StageName from Opportunity where Name = \''+OppName+'\'', function(err, result){
                     if (err) {
@@ -170,6 +170,25 @@ var specificOppRetrieval=function(OppName){
             }
 		});
 });
+}
+
+var getCrudInfo = function(sObject,profileName){
+	return new Promise((resolve,reject)=>{
+		conn.login(process.env.username, process.env.pass, (err, res)=>{
+			if(err){reject(err);}
+			else{ 
+                conn.query('select PermissionsRead,PermissionsCreate,PermissionsEdit,PermissionsDelete from ObjectPermissions where SObjectType = \''+sObject+'\' and parent.profile.name = \''+profileName+'\'', function(err, result){
+                    if (err) {
+                        reject(err);
+                    }
+                    else{
+                        resolve(result);
+                    }
+                });
+			
+            }
+		});
+	});
 }
 
 var specificOppUpdate = function(OppAmt){
@@ -557,6 +576,7 @@ app.intent('getAccInfo',(conv,params)=>{
 app.intent('exitintent', (conv) => {
   conv.close('GoodBye. Please feel free to drop in again');
 });
+
 app.intent('getOppprty',(conv,{oppStage})=>{
     var strnm = '';
     console.log('stage passed from google'+oppStage);
@@ -574,6 +594,27 @@ app.intent('getOppprty',(conv,{oppStage})=>{
 	}).catch((err)=>{
         console.log('error',err);
 	    conv.ask(new SimpleResponse({speech:"Error while fetching Opportunity info",text:"Error while fetching Opportunity info"}));});	
+});
+
+app.intent('getCRUDPerms',(conv,{sObject,profileName})=>{
+    
+    console.log('sobject passed from google'+sObject);
+	console.log('profile passed from google'+profileName);
+	
+	return getCrudInfo(sObject,profileName).then((resp)=>{
+        
+		var strResult = '';
+		console.log('response',resp);
+        strResult += resp.records[0].PermissionsCreate + ',';
+		strResult += resp.records[0].PermissionsRead + ',';
+		strResult += resp.records[0].PermissionsEdit + ',';
+		strResult += resp.records[0].PermissionsDelete + ',';
+           
+		conv.ask(new SimpleResponse({speech:"CRUD permission for "+sObject+" object on "+profileName+ " profile is "+strResult+ " respectively",text:"CRUD permission for "+sObject+" object on "+profileName+ " profile is "+strResult+ " respectively"}));
+		
+	}).catch((err)=>{
+        console.log('error',err);
+	    conv.ask(new SimpleResponse({speech:"Error while fetching CRUD info",text:"Error while fetching CRUD info"}));});	
 });
 
 app.intent('getSpecificOpp',(conv,{OppName})=>{
