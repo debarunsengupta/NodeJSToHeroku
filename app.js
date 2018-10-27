@@ -181,7 +181,9 @@ var getCrudInfo = function(sObject,profileName){
 				var header='Bearer '+conn.accessToken;
 				var options = { Authorization: header};
 				
-				conn.apex.get("/crudINFO?sObject="+sObject+"&profileName="+profileName,options,function(err, res){
+				//conn.apex.get("/crudINFO?sObject="+sObject+"&profileName="+profileName,options,function(err, res){
+				conn.apex.get("/crudINFO?sObject=Campaign&profileName=System%20Administrator,options,function(err, res){
+					
                     if (err) {
                         reject(err);
                     }
