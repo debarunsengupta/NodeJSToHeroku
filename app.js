@@ -618,7 +618,7 @@ app.intent('getCRUDPerms',(conv,{sObject,profileName})=>{
 
 app.intent('getSpecificOpp',(conv,{OppName})=>{
    // dependencies
-'use strict';
+
 const express = require('express');
 const http = require('https');
 const bodyParser=require('body-parser');
