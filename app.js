@@ -519,10 +519,10 @@ app.intent('connect_salesforce',(conv,params)=>{
 });
 
 app.intent('Default Welcome Intent', (conv) => {
-	conv.ask(new SimpleResponse({speech:"Hello, this is your friendly salesforce connector.I would like to help you with some basic salesforce functionalities.Here are some suggestions",text:"Hello, this is your friendly salesforce connector.I would like to help you with some basic salesforce functionalities.Here are some suggestions"}));
-    conv.ask(new Suggestions('Create new Lead'));
+	conv.ask(new SimpleResponse({speech:"Hello, this is your friendly salesforce connector.I can help you with some basic salesforce functionalities.",text:"Hello, this is your friendly salesforce connector.I can help you with some basic salesforce functionalities."}));
+    //conv.ask(new Suggestions('Create new Lead'));
 	//conv.ask(new Suggestions('Convert Lead'));
-	conv.ask(new Suggestions('Create a new Account'));
+	//conv.ask(new Suggestions('Create a new Account'));
 	//conv.ask(new Suggestions('Submit for Approval'));
 	//conv.ask(new Suggestions('Submit Account for Approval'));
 	console.log('conv.user',conv.user);
@@ -1116,7 +1116,7 @@ app.intent('connect_salesforce',(conv,params)=>{
 		//const explicit = conv.arguments.get('objName'); // also retrievable with explicit arguments.get
 		//console.log('the val is :'+explicit);
 
-		conv.ask(new SimpleResponse({speech:"We are able to connect to your account",text:"We are able to connect your account"}));
+		conv.ask(new SimpleResponse({speech:"Hi Sagnik! We are able to connect to your Salesforce account",text:"Hi Sagnik! We are able to connect to your Salesforce account"}));
 				
 		/*conv.ask(new BasicCard({
   text: 'testing',
@@ -1126,7 +1126,7 @@ app.intent('connect_salesforce',(conv,params)=>{
 }));*/
 		
 
-	conv.ask(new Suggestions('Create New Account'));
+	//conv.ask(new Suggestions('Create New Account'));
 		
 	},(error) => {
   console.log('Promise rejected.');
@@ -1588,7 +1588,7 @@ app.intent('ConvertLead',(conv)=>{
 		reqleadid='error';
 	    conv.ask(new SimpleResponse({speech:"Error while converting Lead",text:"Error while converting Lead"}));
 		});
-		}
+		}	
 		else
 		{
 			conv.ask(new SimpleResponse({speech:"The lead name is not present in salesforce",text:"The lead name is not present in salesforce"}));
