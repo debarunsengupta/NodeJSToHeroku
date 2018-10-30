@@ -507,7 +507,7 @@ app.intent('connect_salesforce',(conv,params)=>{
 }));*/
 		
 
-	conv.ask(new Suggestions('Create New Account'));
+	//conv.ask(new Suggestions('Create New Account'));
 		
 	},(error) => {
   console.log('Promise rejected.');
