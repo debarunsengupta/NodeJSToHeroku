@@ -197,6 +197,31 @@ var getCrudInfo = function(sObject,profileName){
 	});
 }
 
+var getBatchJobStatus = function(batchclassname){
+	return new Promise((resolve,reject)=>{
+		conn.login(process.env.username, process.env.pass, (err, res)=>{
+			if(err){reject(err);}
+			else{ 
+				console.log('conn.accessToken:'+conn.accessToken);
+				var header='Bearer '+conn.accessToken;
+				var options = { Authorization: header};
+				
+				conn.apex.get("/BatchJobStatus/"+batchclassname,options,function(err, res){
+				//conn.apex.get("/crudINFO?sObject=Campaign&profileName=System%20Administrator,options,function(err, res){
+					
+                    if (err) {
+                        reject(err);
+                    }
+                    else{
+                        resolve(res);
+                    }
+                });
+			
+            }
+		});
+	});
+}
+
 var specificOppUpdate = function(OppAmt){
 	return new Promise((resolve,reject)=>{
 		console.log('OppAmt -->',OppAmt);
@@ -610,6 +635,20 @@ app.intent('getCRUDPerms',(conv,{sObject,profileName})=>{
 	return getCrudInfo(sObject,profileName).then((resp)=>{
            
 		conv.ask(new SimpleResponse({speech:"CRUD permission for "+sObject+" object on "+profileName+ " profile is "+resp+ " respectively",text:"CRUD permission for "+sObject+" object on "+profileName+ " profile is "+resp+ " respectively"}));
+		
+	}).catch((err)=>{
+        console.log('error',err);
+	    conv.ask(new SimpleResponse({speech:"Error while fetching CRUD info",text:"Error while fetching CRUD info"}));});	
+});
+
+app.intent('getBatchJobStatus',(conv,{jobname})=>{
+    
+    console.log('jobname passed from google'+jobname);
+	
+	
+	return getBatchJobStatus(jobname).then((resp)=>{
+           
+		conv.ask(new SimpleResponse({speech:"The batch job status for class named "+jobname+"is "+resp,text:"The batch job status for class named "+jobname+"is "+resp}));
 		
 	}).catch((err)=>{
         console.log('error',err);
