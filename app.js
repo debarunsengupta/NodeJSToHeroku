@@ -497,7 +497,7 @@ app.intent('connect_salesforce',(conv,params)=>{
 		//const explicit = conv.arguments.get('objName'); // also retrievable with explicit arguments.get
 		//console.log('the val is :'+explicit);
 
-		conv.ask(new SimpleResponse({speech:"We are able to connect to your account",text:"We are able to connect your account"}));
+		conv.ask(new SimpleResponse({speech:"Hi Sagnik ! We are able to connect to your account",text:"Hi Sagnik ! We are able to connect your account"}));
 				
 		/*conv.ask(new BasicCard({
   text: 'testing',
