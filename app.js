@@ -649,7 +649,7 @@ app.intent('getBatchJobStatus',(conv,{jobname})=>{
 	return getBatchJobStatus(jobname).then((resp)=>{
            if(resp !='Batch Job Status not found')
 	       {
-		conv.ask(new SimpleResponse({speech:"The batch job status for class named "+jobname +"is "+resp,text:"The batch job status for class named "+jobname+"is "+resp}));
+		conv.ask(new SimpleResponse({speech:"The batch job status for class named "+jobname +" is "+resp,text:"The batch job status for class named "+jobname+" is "+resp}));
 	       }
 		else
 		{
