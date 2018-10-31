@@ -1392,16 +1392,17 @@ app.intent('getSpecificOpp',(conv,{OppName})=>{
 
 app.intent('updateAcc',(conv,{accName,accAnnRev})=>
 	{
-	//console.log('Param:',params);
-	console.log('Param accName:',accName);
-	//console.log('Param accType:',accType);
-	   return accUpdate(accName,accAnnRev).then((resp)=>{
-		conv.ask(new SimpleResponse({speech:"Ok.Account revenue updated",text:"Ok.Account revenue updated"}));
-		conv.ask(new Suggestions('Submit for Approval'));
+	
+		console.log('account name:',accName);
+		console.log('Param accType:',accType);
+	
+	    return accUpdate(accName,accAnnRev).then((resp)=>{
+			conv.ask(new SimpleResponse({speech:"Ok.Account revenue updated",text:"Ok.Account revenue updated"}));
+			conv.ask(new Suggestions('Submit for Approval'));
 		
-	}).catch((err)=>{
-	conv.ask(new SimpleResponse({speech:"Error while updating Account info",text:"Error while updating Account info"}));});	
-});
+		}).catch((err)=>{
+			conv.ask(new SimpleResponse({speech:"Error while updating Account info",text:"Error while updating Account info"}));});	
+	});
 
 app.intent('updateAccAddr',(conv,{accountName,accBillingStrt,accBillingCty,accBillingstate,accBillingZip,accBillingCountry})=>
 	{
@@ -1578,18 +1579,18 @@ server.listen(port, function () {
 	
 });
 
-/*app.intent('updateAcc',(conv,{accName,accIndustry})=>
+app.intent('updateAcc',(conv,{accName,accAnnRev})=>
 	{
 	//console.log('Param:',params);
 	console.log('Param accName:',accName);
 	//console.log('Param accType:',accType);
-	   return accUpdate(accName,accIndustry).then((resp)=>{
-		conv.ask(new SimpleResponse({speech:"Ok.Account information updated",text:"Ok.Account information updated"}));
+	   return accUpdate(accName,accAnnRev).then((resp)=>{
+		conv.ask(new SimpleResponse({speech:"Ok.Account revenue amount updated",text:"Ok.Account reveneue amount updated"}));
 		conv.ask(new Suggestions('Submit for Approval'));
 		
 	}).catch((err)=>{
 	conv.ask(new SimpleResponse({speech:"Error while updating Account info",text:"Error while updating Account info"}));});	
-});*/
+});
 
 app.intent('updateAccAddr',(conv,{accountName,accBillingStrt,accBillingCty,accBillingstate,accBillingZip,accBillingCountry})=>
 	{
