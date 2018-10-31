@@ -673,7 +673,7 @@ app.intent('createCustomLabel',(conv,{LabelName,Value})=>{
 	
 	return getCreateLabel(LabelName,Value).then((resp)=>{
            
-		conv.ask(new SimpleResponse({speech:"Custom Label named "+LabelName+" created successfully",text:"Custom Label named "+LabelName+" created successfully"));
+		conv.ask(new SimpleResponse({speech:"Custom Label named "+LabelName+" created successfully",text:"Custom Label named "+LabelName+" created successfully"}));
 		
 	}).catch((err)=>{
         console.log('error',err);
