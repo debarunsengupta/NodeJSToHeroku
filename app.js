@@ -988,7 +988,7 @@ var oppStageUpdate = function(oppStage){
 });
 }
 
-/*var accUpdate = function(accName,accAnnRev){
+var accUpdate = function(accName,accAnnRev){
 	return new Promise((resolve,reject)=>{
 		acctName = accName;
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
@@ -1006,7 +1006,7 @@ var oppStageUpdate = function(oppStage){
             }
 		});
 	});
-}*/
+}
 
 var accBillingUpdate = function(accountName,accBillingStrt,accBillingCty,accBillingstate,accBillingZip,accBillingCountry){
 	return new Promise((resolve,reject)=>{
