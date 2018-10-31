@@ -315,13 +315,13 @@ var oppStageUpdate = function(oppStage){
 });
 }
 
-var accUpdate = function(accName,accIndustry){
+var accUpdate = function(accName,accAnnRev){
 	return new Promise((resolve,reject)=>{
 		acctName = accName;
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
 			if(err){reject(err);}
 			else{ 
-                conn.sobject('Account').find({ 'Name' : accName }).update({ Industry: accIndustry }, function(err, result) {
+                conn.sobject('Account').find({ 'Name' : accName }).update({ AnnualRevenue: accAnnRev }, function(err, result) {
                     if (err) {
                         reject(err);
                     }
@@ -987,13 +987,13 @@ var oppStageUpdate = function(oppStage){
 });
 }
 
-var accUpdate = function(accName,accIndustry){
+/*var accUpdate = function(accName,accAnnRev){
 	return new Promise((resolve,reject)=>{
 		acctName = accName;
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
 			if(err){reject(err);}
 			else{ 
-                conn.sobject('Account').find({ 'Name' : accName }).update({ Industry: accIndustry }, function(err, result) {
+                conn.sobject('Account').find({ 'Name' : accName }).update({ AnnualRevenue: accAnnRev }, function(err, result) {
                     if (err) {
                         reject(err);
                     }
@@ -1005,7 +1005,7 @@ var accUpdate = function(accName,accIndustry){
             }
 		});
 });
-}
+}*/
 
 var accBillingUpdate = function(accountName,accBillingStrt,accBillingCty,accBillingstate,accBillingZip,accBillingCountry){
 	return new Promise((resolve,reject)=>{
@@ -1389,12 +1389,12 @@ app.intent('getSpecificOpp',(conv,{OppName})=>{
 	
 });
 
-app.intent('updateAcc',(conv,{accName,accIndustry})=>
+app.intent('updateAcc',(conv,{accName,accAnnRev})=>
 	{
 	//console.log('Param:',params);
 	console.log('Param accName:',accName);
 	//console.log('Param accType:',accType);
-	   return accUpdate(accName,accIndustry).then((resp)=>{
+	   return accUpdate(accName,accAnnRev).then((resp)=>{
 		conv.ask(new SimpleResponse({speech:"Ok.Account information updated",text:"Ok.Account information updated"}));
 		conv.ask(new Suggestions('Submit for Approval'));
 		
