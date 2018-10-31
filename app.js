@@ -317,6 +317,7 @@ var oppStageUpdate = function(oppStage){
 
 var accUpdate = function(accName,accAnnRev){
 	return new Promise((resolve,reject)=>{
+		acctName = accName;
 		console.log('account name is'+accName);
 		console.log('account revenue is'+accAnnRev);
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
@@ -987,7 +988,7 @@ var oppStageUpdate = function(oppStage){
 		});
 });
 }
-
+/*
 var accUpdate = function(accName,accAnnRev){
 	return new Promise((resolve,reject)=>{
 		acctName = accName;
@@ -1006,7 +1007,7 @@ var accUpdate = function(accName,accAnnRev){
             }
 		});
 	});
-}
+}*/
 
 var accBillingUpdate = function(accountName,accBillingStrt,accBillingCty,accBillingstate,accBillingZip,accBillingCountry){
 	return new Promise((resolve,reject)=>{
