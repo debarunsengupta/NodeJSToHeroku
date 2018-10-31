@@ -1482,7 +1482,7 @@ app.intent('SubmitForApproval',(conv)=>{
        return approvalprocesssubmit(acctName,resp.records[0].Id).then((resp)=>{
         console.log('response fetched while calling apex service: ',resp);
 		 console.log('Inside called 3');
-		 conv.ask(new SimpleResponse({speech:"Approval Process Submitted Successfully",text:"Approval Process Submitted Successfully"}));
+		 conv.ask(new SimpleResponse({speech:"Record submitted for Approval Successfully",text:"Record submitted for Approval Successfully"}));
         }).catch((err)=>{
         console.log('error msg:',err);
 		reqleadid='error';
