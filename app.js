@@ -710,8 +710,14 @@ app.intent('updateCustomLabel',(conv,{LabelName,Value})=>{
 	console.log('Value passed from google'+Value);
 	
 	return getUpdateLabel(LabelName,Value).then((resp)=>{
-           
+           if(resp=='Custom label updated successfully')
+		   {
 		conv.ask(new SimpleResponse({speech:"Custom Label named "+LabelName+" updated successfully",text:"Custom Label named "+LabelName+" updated successfully"}));
+		   }
+		   else
+		   {
+			  	conv.ask(new SimpleResponse({speech:"Custom Label named "+LabelName+" not found",text:"Custom Label named "+LabelName+" not found"})); 
+		   }
 		
 	}).catch((err)=>{
         console.log('error',err);
