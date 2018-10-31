@@ -317,7 +317,8 @@ var oppStageUpdate = function(oppStage){
 
 var accUpdate = function(accName,accAnnRev){
 	return new Promise((resolve,reject)=>{
-		acctName = accName;
+		console.log('account name is'+accName);
+		console.log('account revenue is'+accAnnRev);
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
 			if(err){reject(err);}
 			else{ 
@@ -987,7 +988,7 @@ var oppStageUpdate = function(oppStage){
 });
 }
 
-var accUpdate = function(accName,accAnnRev){
+/*var accUpdate = function(accName,accAnnRev){
 	return new Promise((resolve,reject)=>{
 		acctName = accName;
 		conn.login(process.env.username, process.env.pass, (err, res)=>{
@@ -1005,7 +1006,7 @@ var accUpdate = function(accName,accAnnRev){
             }
 		});
 	});
-}
+}*/
 
 var accBillingUpdate = function(accountName,accBillingStrt,accBillingCty,accBillingstate,accBillingZip,accBillingCountry){
 	return new Promise((resolve,reject)=>{
@@ -1577,7 +1578,7 @@ server.listen(port, function () {
 	
 });
 
-app.intent('updateAcc',(conv,{accName,accIndustry})=>
+/*app.intent('updateAcc',(conv,{accName,accIndustry})=>
 	{
 	//console.log('Param:',params);
 	console.log('Param accName:',accName);
@@ -1588,7 +1589,7 @@ app.intent('updateAcc',(conv,{accName,accIndustry})=>
 		
 	}).catch((err)=>{
 	conv.ask(new SimpleResponse({speech:"Error while updating Account info",text:"Error while updating Account info"}));});	
-});
+});*/
 
 app.intent('updateAccAddr',(conv,{accountName,accBillingStrt,accBillingCty,accBillingstate,accBillingZip,accBillingCountry})=>
 	{
