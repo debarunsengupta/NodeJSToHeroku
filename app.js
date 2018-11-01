@@ -734,7 +734,7 @@ app.intent('getBatchJobStatus',(conv,{jobname})=>{
 	return getBatchJobStatus(jobname).then((resp)=>{
            if(resp !='Batch Job Status not found')
 	       {
-		conv.ask(new SimpleResponse({speech:"The batch job status for class named "+jobname +" is "+resp,text:"The batch job status for class named "+jobname+" is "+resp}));
+		conv.ask(new SimpleResponse({speech:"The current batch job status for class named "+jobname +" is "+resp,text:"The current batch job status for class named "+jobname+" is "+resp}));
 	       }
 		else
 		{
@@ -742,7 +742,7 @@ app.intent('getBatchJobStatus',(conv,{jobname})=>{
 		}
 	}).catch((err)=>{
         console.log('error',err);
-	    conv.ask(new SimpleResponse({speech:"Error while fetching batch job status",text:"Error while fetching batch job status"}));});	
+	    conv.ask(new SimpleResponse({speech:"Error while fetching current batch job status",text:"Error while fetching current batch job status"}));});	
 });
 
 app.intent('getSpecificOpp',(conv,{OppName})=>{
